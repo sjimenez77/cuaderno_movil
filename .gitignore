@@ -5,6 +5,6 @@ node_modules/
 platforms/
 plugins/
 
-# Sublime
-.sublime-project
-.sublime-workspace
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
