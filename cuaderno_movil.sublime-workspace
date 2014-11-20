@@ -116,14 +116,6 @@
 			}
 		},
 		{
-			"file": ".gitignore",
-			"settings":
-			{
-				"buffer_size": 138,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "www/js/controllers.js",
 			"settings":
 			{
@@ -231,6 +223,8 @@
 	[
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/platforms/android",
+		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www",
+		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www/js",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www/lib",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www/lib/ionic",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www/lib/ngCordova/dist",
@@ -238,8 +232,8 @@
 	],
 	"file_history":
 	[
-		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/plugins/android.json",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/.gitignore",
+		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/plugins/android.json",
 		"/home/desarrollo5/Proyectos/ionic/cuaderno_movil/www/js/app.js",
 		"/tmp/fz3temp-1/.htaccess",
 		"/home/desarrollo5/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
@@ -591,7 +585,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -621,7 +615,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -656,34 +650,6 @@
 				},
 				{
 					"buffer": 4,
-					"file": ".gitignore",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 138,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
 					"file": "www/js/controllers.js",
 					"semi_transient": false,
 					"settings":
@@ -709,7 +675,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
