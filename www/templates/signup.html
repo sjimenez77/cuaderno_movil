@@ -1,0 +1,35 @@
+<ion-view title="Registro">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content padding="true" scroll="false" class="has-header">
+        <form>
+            <ion-list>
+                <ion-item class="item-divider">Datos personales</ion-item>
+                <label class="item item-input" name="name">
+                    <span class="input-label">Nombre</span>
+                    <input type="text" placeholder="Introduzca su nombre">
+                </label>
+                <label class="item item-input" name="surname">
+                    <span class="input-label">Apellidos</span>
+                    <input type="text" placeholder="Introduzca sus apellidos">
+                </label>
+                <label class="item item-input" name="email">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="ejemplo@dominio.es">
+                </label>
+                <ion-item class="item-divider">Acceso</ion-item>
+                <label class="item item-input" name="user">
+                    <span class="input-label">Usuario</span>
+                    <input type="text" placeholder="Nombre de usuario">
+                </label>
+                <label class="item item-input" name="password">
+                    <span class="input-label">Contraseña</span>
+                    <input type="text" placeholder="Mínimo 8 caracteres">
+                </label>
+            </ion-list>
+            <button class="button button-assertive button-block">Crear cuenta</button>
+        </form>
+        <button class="button button-dark button-icon button-block">Regístrese con Facebook</button>
+    </ion-content>
+</ion-view>

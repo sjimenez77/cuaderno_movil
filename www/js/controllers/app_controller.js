@@ -1,7 +1,7 @@
-/* global s */
+/* global appControllers */
 'use strict';
 
-controllers.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+appControllers.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
     // Form data for the login modal
     $scope.loginData = {};
 

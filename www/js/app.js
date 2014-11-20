@@ -29,6 +29,15 @@ var app = angular.module('cuaderno', ['ionic', 'cuaderno.controllers', 'cuaderno
       controller: 'AppCtrl'
     })
 
+    .state('app.signup', {
+      url: "/signup",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/signup.html"
+        }
+      }
+    })
+
     .state('app.search', {
       url: "/search",
       views: {
@@ -70,5 +79,5 @@ var app = angular.module('cuaderno', ['ionic', 'cuaderno.controllers', 'cuaderno
 });
 
 // Modules instantiation
-var controllers = angular.module('cuaderno.controllers', []);
-var services = angular.module('cuaderno.services', []);
+var appControllers = angular.module('cuaderno.controllers', []);
+var appServices = angular.module('cuaderno.services', []);

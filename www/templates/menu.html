@@ -8,21 +8,29 @@
   </ion-side-menu-content>
 
   <ion-side-menu side="left" expose-aside-when="large">
-    <header class="bar bar-header bar-stable">
+    <header class="bar bar-header bar-assertive">
       <h1 class="title">Menú</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close ng-click="login()">
+        <ion-item class="item item-icon-left item-dark" nav-clear menu-close ng-click="login()">
+          <i class="icon ion-email"></i>
           Entrar
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/search">
+        <ion-item class="item item-icon-left item-dark" nav-clear menu-close href="#/app/signup">
+          <i class="icon ion-email"></i>
+          Registro
+        </ion-item>
+        <ion-item class="item item-icon-left item-dark" nav-clear menu-close href="#/app/search">
+          <i class="icon ion-email"></i>
           Search
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/browse">
+        <ion-item class="item item-icon-left item-dark" nav-clear menu-close href="#/app/browse">
+          <i class="icon ion-email"></i>
           Browse
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/parcelas">
+        <ion-item class="item item-icon-left item-dark" nav-clear menu-close href="#/app/parcelas">
+          <i class="icon ion-email"></i>
           Parcelas
         </ion-item>
       </ion-list>

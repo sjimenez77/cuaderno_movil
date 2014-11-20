@@ -1,6 +1,6 @@
-/* global controllers */
+/* global appControllers */
 'use strict';
 
-controllers.controller('ParcelasCtrl', function($scope) {
+appControllers.controller('ParcelasCtrl', function($scope) {
   $scope.parcelas = [];
 });
