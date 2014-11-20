@@ -1,10 +1,9 @@
-// Ionic Starter App
+/* global app:true angular cordova StatusBar */
+'use strict';
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
+// Ionic Cuaderno de Campo App
+
+var app = angular.module('cuaderno', ['ionic', 'cuaderno.controllers', 'cuaderno.services', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -70,3 +69,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
   $urlRouterProvider.otherwise('/app/parcelas');
 });
 
+// Modules instantiation
+var controllers = angular.module('cuaderno.controllers', []);
+var services = angular.module('cuaderno.services', []);
