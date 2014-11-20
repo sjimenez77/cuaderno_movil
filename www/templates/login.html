@@ -1,8 +1,8 @@
 <div class="modal">
   <ion-header-bar>
-    <h1 class="title">Login</h1>
+    <h1 class="title">Entrar</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
+      <button class="button button-clear" ng-click="closeLogin()">Cerrar</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -10,14 +10,14 @@
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Usuario</span>
-          <input type="text" ng-model="loginData.username">
+          <input type="text" placeholder="Escriba su usuario" ng-model="loginData.username">
         </label>
         <label class="item item-input">
           <span class="input-label">Contraseña</span>
-          <input type="password" ng-model="loginData.password">
+          <input type="password" placeholder="Escriba su contraseña" ng-model="loginData.password">
         </label>
         <label class="item">
-          <button class="button button-block button-positive" type="submit">Entrar</button>
+          <button class="button button-block button-positive" type="submit">Conectar</button>
         </label>
       </div>
     </form>
