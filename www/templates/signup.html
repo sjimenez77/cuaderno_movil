@@ -1,8 +1,10 @@
 <ion-view title="Registro">
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
-    <ion-content padding="true" scroll="false" class="has-header">
+    <ion-nav-bar class="bar-dark">
+        <ion-nav-buttons side="left">
+            <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> {{ 'BACK' | translate }}</ion-nav-back-button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content padding="true" scroll="true" class="has-header">
         <form>
             <ion-list>
                 <ion-item class="item-divider">Datos personales</ion-item>
@@ -30,6 +32,5 @@
             </ion-list>
             <button class="button button-assertive button-block">Crear cuenta</button>
         </form>
-        <button class="button button-dark button-icon button-block">Regístrese con Facebook</button>
     </ion-content>
 </ion-view>

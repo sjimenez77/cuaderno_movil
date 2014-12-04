@@ -1,6 +1,10 @@
 /* global appControllers */
 'use strict';
 
-appControllers.controller('ParcelaCtrl', function($scope, $stateParams) {
-    
-});
+appControllers.controller('ParcelaCtrl', [
+    '$scope',
+    '$stateParams',
+    function($scope, $stateParams) {
+        
+    }
+]);
