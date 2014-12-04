@@ -11,6 +11,26 @@ var app = angular.module('cuaderno', [
     'pascalprecht.translate'
 ])
 
+// Auth events
+.constant('AUTH_EVENTS', {
+    loginSuccess: 'auth-login-success',
+    loginFailed: 'auth-login-failed',
+    logoutSuccess: 'auth-logout-success',
+    sessionTimeout: 'auth-session-timeout',
+    notAuthenticated: 'auth-not-authenticated',
+    notAuthorized: 'auth-not-authorized'
+})
+
+// User roles
+.constant('USER_ROLES', {
+    all: '*',
+    admin: 'admin',
+    distribuidor: 'distribuidor',
+    tecnico: 'tecnico',
+    productor: 'productor',
+    guest: 'guest'
+})
+
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

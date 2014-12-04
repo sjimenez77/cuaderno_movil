@@ -6,12 +6,20 @@ appControllers.controller('AppCtrl',[
     '$window',
     '$ionicModal',
     '$timeout',
-    function($scope, $window, $ionicModal, $timeout) {
+    'USER_ROLES',
+    'AuthService',
+    function($scope, $window, $ionicModal, $timeout, USER_ROLES, AuthService) {
         // Form data for the login modal
         $scope.loginData = {};
         
         // User
-        $scope.user = {};
+        $scope.currentUser = null;
+        $scope.userRoles = USER_ROLES;
+        $scope.isAuthorized = AuthService.isAuthorized;
+        
+        $scope.setCurrentUser = function (user) {
+            $scope.currentUser = user;
+        };
     
         // Create the login modal that we will use later
         $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -26,7 +34,7 @@ appControllers.controller('AppCtrl',[
         };
     
         // Open the login modal
-        $scope.login = function() {
+        $scope.showLogin = function() {
             $scope.modal.show();
         };
         
