@@ -69,7 +69,8 @@ var app = angular.module('cuaderno', [
         url: "/signup",
         views: {
             'menuContent' :{
-                templateUrl: "templates/signup.html"
+                templateUrl: "templates/signup.html",
+                controller: 'SignUpCtrl'
             }
         }
     })

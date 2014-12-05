@@ -1,8 +1,8 @@
 <div class="modal">
     <ion-header-bar class="bar-dark">
-        <h1 class="title"><i class="icon ion-log-in"></i> Entrar</h1>
+        <h1 class="title">Introduzca sus credenciales</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="closeLogin()">Cerrar</button>
+            <button class="button button-clear" ng-click="closeLogin()"><i class="icon ion-close"></i></button>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -17,7 +17,7 @@
                     <input type="password" placeholder="Escriba su contraseña" ng-model="loginData.password">
                 </label>
                 <label class="item">
-                    <button class="button button-block button-positive" type="submit">Conectar</button>
+                    <button class="button button-block button-balanced" type="submit"><i class="icon ion-log-in"></i> Entrar</button>
                 </label>
             </div>
         </form>

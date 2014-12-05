@@ -6,9 +6,10 @@ appControllers.controller('AppCtrl',[
     '$window',
     '$ionicModal',
     '$timeout',
+    '$ionicNavBarDelegate',
     'USER_ROLES',
     'AuthService',
-    function($scope, $window, $ionicModal, $timeout, USER_ROLES, AuthService) {
+    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, USER_ROLES, AuthService) {
         // Form data for the login modal
         $scope.loginData = {};
         
@@ -27,7 +28,7 @@ appControllers.controller('AppCtrl',[
         }).then(function(modal) {
             $scope.modal = modal;
         });
-    
+
         // Triggered in the login modal to close it
         $scope.closeLogin = function() {
             $scope.modal.hide();
@@ -45,6 +46,7 @@ appControllers.controller('AppCtrl',[
     
         // Perform the login action when the user submits the login form
         $scope.doLogin = function() {
+            // TODO: Login in the service
             console.log('Doing login', $scope.loginData);
             
             // Simulate a login delay. Remove this and replace with your login
