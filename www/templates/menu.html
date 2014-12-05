@@ -6,11 +6,11 @@
         <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side="left" expose-aside-when="large">
-        <header class="bar bar-header bar-positive">
+        <header class="bar bar-header bar-balanced">
             <h1 class="title">{{ 'OPTIONS' | translate }}</h1>
         </header>
         <ion-content class="has-header">
-            <ion-list ng-hide="user.id">
+            <ion-list ng-if="!currentUser">
                 <!-- No user -->
                 <ion-item class="item item-icon-left" nav-clear menu-close ng-click="showLogin()">
                     <i class="icon ion-log-in"></i>
@@ -22,7 +22,7 @@
                 </ion-item>
             </ion-list>
             <!-- User logged in -->
-            <ion-list ng-show="user.id">
+            <ion-list ng-if="currentUser">
                 <ion-item class="item item-icon-left balanced" nav-clear menu-close href="#/app/parcelas">
                     <i class="icon ion-home"></i>
                     Mis parcelas
