@@ -39,6 +39,7 @@ appControllers.controller('AppCtrl',[
     
         // Open the login modal
         this.showLogin = function() {
+            this.loginData = {};
             this.modal.show();
         };
         
