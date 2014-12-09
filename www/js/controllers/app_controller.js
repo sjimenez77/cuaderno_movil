@@ -7,9 +7,10 @@ appControllers.controller('AppCtrl',[
     '$ionicModal',
     '$timeout',
     '$ionicNavBarDelegate',
+    '$ionicPopup',
     'USER_ROLES',
     'AuthService',
-    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, USER_ROLES, AuthService) {
+    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, USER_ROLES, AuthService) {
         // Form data for the login modal
         this.modal = null;
         this.loginData = {};
@@ -56,11 +57,13 @@ appControllers.controller('AppCtrl',[
                 this.loginData.password.length < 6) {
                 // Errors
                 if (this.loginData.username === undefined || this.loginData.username === '')
-                    this.errorMessages.push('El nombre de usuario no puede estar vacío');
+                    this.errorMessages.push('Usuario vacío');
                 if (this.loginData.password === '' || this.loginData.password === undefined)
-                    this.errorMessages.push('La contraseña no puede estar vacía');
+                    this.errorMessages.push('Contraseña vacía');
                 if (this.loginData.password !== undefined && this.loginData.password.length < 6)
-                    this.errorMessages.push('La contraseña no puede tener menos de 6 caracteres');
+                    this.errorMessages.push('Contraseña menor de 6 caracteres');
+
+                this.showLoginErrors();
             } else {
                 // Simulate a login delay. Remove this and replace with your login
                 // code if using a login system
@@ -75,6 +78,26 @@ appControllers.controller('AppCtrl',[
 
         this.hideLoginErrors = function() {
             this.errorMessages = [];
+        };
+
+        // An alert dialog with the login errors
+        this.showLoginErrors = function() {
+            var templateString = '<label>';
+            angular.forEach(this.errorMessages, function(key, value) {
+                templateString += '<p class="assertive">' + key + '</p>';
+            });
+            templateString += '</label>';
+            
+            var alertPopup = $ionicPopup.alert({
+                title: 'Errores encontrados',
+                subTitle: 'Revise los siguientes errores',
+                template: templateString,
+                okText: 'Entendido',
+            });
+
+            alertPopup.then(function(res) {
+                console.log(self.errorMessages);
+            });
         };
 
         // Go to signup template

@@ -21,13 +21,6 @@
                 </label>
             </div>
         </form>
-        <label class="item" ng-if="app.errorMessages.length > 0">
-            <ion-list>
-                <ion-item class="item-divider assertive">Errores encontrados</ion-item>
-                <ion-item ng-repeat="error in app.errorMessages">{{ error }}</ion-item>
-                <button class="button button-block button-outline button-assertive" type="button" ng-click="app.hideLoginErrors()">Ocultar errores</button>
-            </ion-list>
-        </label>
     </ion-content>
 </div>
 
