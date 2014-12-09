@@ -1,4 +1,4 @@
-/* global app:true angular cordova StatusBar */
+/* global app:true angular cordova StatusBar USER_ROLES */
 'use strict';
 
 // Ionic Cuaderno de Campo App
@@ -44,15 +44,32 @@ var app = angular.module('cuaderno', [
         }
     });
 })
-
-.config(function($stateProvider, $urlRouterProvider) {
+/*
+.run(function ($rootScope, AUTH_EVENTS, AuthService) {
+    $rootScope.$on('$stateChangeStart', function (event, next) {
+        console.log("Route changed...");
+        var authorizedRoles = next.data.authorizedRoles;
+        if (!AuthService.isAuthorized(authorizedRoles)) {
+            event.preventDefault();
+            if (AuthService.isAuthenticated()) {
+                // user is not allowed
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+            } else {
+                // user is not logged in
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            }
+        }
+    });
+})
+*/
+.config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     $stateProvider
 
     .state('app', {
         url: "/app",
         abstract: true,
         templateUrl: "templates/menu.html",
-        controller: 'AppCtrl'
+        controller: 'AppCtrl as app'
     })
     
     .state('app.home', {
@@ -60,8 +77,11 @@ var app = angular.module('cuaderno', [
         views: {
             'menuContent' :{
                 templateUrl: "templates/home.html",
-                controller: 'AppCtrl'
+                controller: 'HomeCtrl as home'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.guest]
         }
     })
     
@@ -70,8 +90,11 @@ var app = angular.module('cuaderno', [
         views: {
             'menuContent' :{
                 templateUrl: "templates/signup.html",
-                controller: 'SignUpCtrl'
+                controller: 'SignUpCtrl as signUp'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.guest]
         }
     })
     
@@ -80,8 +103,11 @@ var app = angular.module('cuaderno', [
         views: {
             'menuContent' :{
                 templateUrl: "templates/parcelas.html",
-                controller: 'ParcelasCtrl'
+                controller: 'ParcelasCtrl as parcelas'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.all]
         }
     })
     
@@ -89,9 +115,12 @@ var app = angular.module('cuaderno', [
         url: "/parcelas/:parcelaId",
         views: {
             'menuContent' :{
-              templateUrl: "templates/parcela.html",
-              controller: 'ParcelaCtrl'
+                templateUrl: "templates/parcela.html",
+                controller: 'ParcelaCtrl as parcela'
             }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.all]
         }
     });
         

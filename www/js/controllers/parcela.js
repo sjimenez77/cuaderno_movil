@@ -2,9 +2,8 @@
 'use strict';
 
 appControllers.controller('ParcelaCtrl', [
-    '$scope',
     '$stateParams',
-    function($scope, $stateParams) {
+    function($stateParams) {
         
     }
 ]);

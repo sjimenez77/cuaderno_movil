@@ -6,29 +6,29 @@
         </ion-nav-buttons>
     </ion-nav-bar>
     <ion-content padding="true" scroll="true" class="has-header">
-        <form ng-submit="doSignUp()">
+        <form ng-submit="signUp.doSignUp()">
             <ion-list>
                 <ion-item class="item-divider">Datos personales</ion-item>
                 <label class="item item-input" name="name">
                     <span class="input-label">Nombre</span>
-                    <input type="text" placeholder="Introduzca su nombre" ng-model="signUpData.name">
+                    <input type="text" placeholder="Introduzca su nombre" ng-model="signUp.signUpData.name">
                 </label>
                 <label class="item item-input" name="surname">
                     <span class="input-label">Apellidos</span>
-                    <input type="text" placeholder="Introduzca sus apellidos" ng-model="signUpData.surname">
+                    <input type="text" placeholder="Introduzca sus apellidos" ng-model="signUp.signUpData.surname">
                 </label>
                 <label class="item item-input" name="email">
                     <span class="input-label">Email</span>
-                    <input type="email" placeholder="ejemplo@dominio.es" ng-model="signUpData.email">
+                    <input type="email" placeholder="ejemplo@dominio.es" ng-model="signUp.signUpData.email">
                 </label>
                 <ion-item class="item-divider">Acceso</ion-item>
                 <label class="item item-input" name="user">
                     <span class="input-label">Usuario</span>
-                    <input type="text" placeholder="Nombre de usuario" ng-model="signUpData.username">
+                    <input type="text" placeholder="Nombre de usuario" ng-model="signUp.signUpData.username">
                 </label>
                 <label class="item item-input" name="password">
                     <span class="input-label">Contraseña</span>
-                    <input type="password" placeholder="Mínimo 8 caracteres" ng-model="signUpData.password">
+                    <input type="password" placeholder="Mínimo 8 caracteres" ng-model="signUp.signUpData.password">
                 </label>
             </ion-list>
             <button class="button button-assertive button-block" type="submit">Crear cuenta</button>
