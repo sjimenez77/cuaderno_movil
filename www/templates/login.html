@@ -2,25 +2,32 @@
     <ion-header-bar class="bar-dark">
         <h1 class="title">Introduzca sus credenciales</h1>
         <div class="buttons">
-            <button class="button button-clear" ng-click="home.closeLogin()"><i class="icon ion-close"></i></button>
+            <button class="button button-clear" ng-click="app.closeLogin()"><i class="icon ion-close"></i></button>
         </div>
     </ion-header-bar>
     <ion-content>
-        <form ng-submit="home.doLogin()">
+        <form ng-submit="app.doLogin()">
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Usuario</span>
-                    <input type="text" placeholder="Escriba su usuario" ng-model="home.loginData.username">
+                    <input type="text" placeholder="Escriba su usuario" ng-model="app.loginData.username">
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Contraseña</span>
-                    <input type="password" placeholder="Escriba su contraseña" ng-model="home.loginData.password">
+                    <input type="password" placeholder="Escriba su contraseña" ng-model="app.loginData.password">
                 </label>
                 <label class="item">
                     <button class="button button-block button-balanced" type="submit"><i class="icon ion-log-in"></i> Entrar</button>
                 </label>
             </div>
         </form>
+        <label class="item" ng-if="app.errorMessages.length > 0">
+            <ion-list>
+                <ion-item class="item-divider assertive">Errores encontrados</ion-item>
+                <ion-item ng-repeat="error in app.errorMessages">{{ error }}</ion-item>
+                <button class="button button-block button-outline button-assertive" type="button" ng-click="app.hideLoginErrors()">Ocultar errores</button>
+            </ion-list>
+        </label>
     </ion-content>
 </div>
 

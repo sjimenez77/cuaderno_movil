@@ -8,8 +8,8 @@
         <div style="line-height: 50px; text-align: center;">
             <img src="img/ccampo_logo_vertical.png" style="padding-top: 20px"></img>
         </div>
-        <div ng-if="!home.currentUser">
-            <button class="button button-dark button-block" ng-click="home.showLogin()">
+        <div ng-if="!app.currentUser">
+            <button class="button button-dark button-block" ng-click="app.showLogin()">
                 <i class="icon ion-log-in"></i> Entrar
             </button>
             <div class="spacer" style="height:20px"></div>
@@ -20,9 +20,9 @@
                 Registro
             </a>
         </div>
-        <div ng-if="home.currentUser">
+        <div ng-if="app.currentUser">
             <ion-list>
-                <ion-item class="item-divider">Bienvenido, {{ home.currentUser.name }}</ion-item>
+                <ion-item class="item-divider">Bienvenido, {{ app.currentUser.name }}</ion-item>
                     <label class="item">
                         <a href="#/app/parcelas" class="button button-balanced button-block" type="button">
                             <i class="icon ion-home"></i> Mis parcelas
