@@ -30,9 +30,9 @@ appServices.factory('AuthService', [
                     // Error callback
                     function (error) {
                         var alertPopup = $ionicPopup.alert({
-                            title: 'Error',
+                            title: '<i class="ion-alert-circled"></i> Error',
                             subTitle: 'Ha sido imposible acceder al servicio',
-                            template: '<strong>Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><br><span class="assertive">Por favor, inténtelo de nuevo más tarde...</span>',
+                            template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
                             okText: 'Entendido',
                         });
 
@@ -41,6 +41,10 @@ appServices.factory('AuthService', [
                         });
                     }
                 );
+        };
+
+        authService.logout = function () {
+            Session.destroy();
         };
             
         authService.isAuthenticated = function () {

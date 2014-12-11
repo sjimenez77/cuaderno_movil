@@ -5,31 +5,33 @@
         </ion-nav-bar>
         <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     </ion-side-menu-content>
-    <ion-side-menu side="left" expose-aside-when="large">
+    <ion-side-menu side="left" expose-aside-when="large" style="background: #f8f8f8">
         <header class="bar bar-header bar-dark">
             <h1 class="title">{{ 'OPTIONS' | translate }}</h1>
         </header>
         <ion-content class="has-header">
-            <!-- No user -->
             <ion-list ng-if="!app.currentUser">
-                <ion-item class="item item-icon-left" nav-clear menu-close href="#/app/home">
-                    <i class="icon ion-home"></i>
-                    Inicio
-                </ion-item>
-                <ion-item class="item item-icon-left assertive" nav-clear menu-close ng-click="app.goSignUp()">
-                    <i class="icon ion-plus-circled"></i>
-                    Registro
-                </ion-item>
-            </ion-list>
-            <!-- User logged in -->
-            <ion-list ng-if="app.currentUser">
-                <ion-item class="item item-icon-left balanced" nav-clear menu-close href="#/app/parcelas">
-                    <i class="icon ion-home"></i>
-                    Mis parcelas
-                </ion-item>
-                <ion-item class="item item-icon-left assertive" nav-clear menu-close ng-click="app.logout()">
-                    <i class="icon ion-log-out"></i>
-                    Salir
+                <!-- No user -->
+                <div ng-if="!app.currentUser">
+                    <ion-item class="item item-stable item-icon-left" nav-clear menu-close href="#/app/home">
+                        <i class="icon ion-home"></i> Inicio
+                    </ion-item>
+                    <ion-item class="item item-stable item-icon-left" nav-clear menu-close ng-click="app.goSignUp()">
+                        <span class="balanced"><i class="icon ion-plus-circled"></i> Nuevo usuario</span>
+                    </ion-item>
+                </div>
+                <!-- User logged in -->
+                <div ng-if="app.currentUser">
+                    <ion-item class="item item-icon-left balanced" nav-clear menu-close href="#/app/parcelas">
+                        <span class="balanced"><i class="icon ion-plus-circled"></i> Mis parcelas</span>
+                    </ion-item>
+                    <ion-item class="item item-icon-left assertive" nav-clear menu-close ng-click="app.logout()">
+                        <span class="balanced"><i class="icon ion-log-out"></i> Salir</span>
+                    </ion-item>
+                </div>
+                <!-- Common options -->
+                <ion-item class="item item-balanced item-icon-left" nav-clear menu-close href="#/app/help">
+                    <span class="light"><i class="icon ion-help-circled"></i> Preguntas frecuentes</span>
                 </ion-item>
             </ion-list>
         </ion-content>

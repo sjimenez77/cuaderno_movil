@@ -83,12 +83,12 @@ appControllers.controller('SignUpCtrl',[
         this.showSignUpErrors = function() {
             var templateString = '<label>';
             angular.forEach(this.errorMessages, function(key, value) {
-                templateString += '<p class="assertive"><i class="ion-star" data-pack="default"></i> ' + key + '</p>';
+                templateString += '<p class="assertive"><i class="ion-arrow-right-b"></i> ' + key + '</p>';
             });
             templateString += '</label>';
             
             var alertPopup = $ionicPopup.alert({
-                title: 'Errores encontrados',
+                title: '<i class="ion-alert-circled"></i> Errores encontrados',
                 subTitle: 'Revise los siguientes errores',
                 template: templateString,
                 okText: 'Entendido',

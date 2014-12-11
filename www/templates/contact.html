@@ -1,0 +1,30 @@
+<div class="modal">
+    <ion-header-bar class="bar-dark">
+        <h1 class="title">Escriba su pregunta</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="app.closeContact()"><i class="icon ion-close"></i></button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="app.doContact()">
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="Escriba su email" ng-model="app.contactData.email">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Asunto</span>
+                    <input type="text" placeholder="Escriba el asunto" ng-model="app.contactData.subject">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Mensaje</span>
+                    <textarea placeholder="Escriba su mensaje" ng-model="app.contactData.message" rows="8"></textarea>
+                </label>
+                <label class="item">
+                    <button class="button button-block button-balanced" type="submit"><i class="icon ion-paper-airplane"></i> Enviar mensaje</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</div>
+

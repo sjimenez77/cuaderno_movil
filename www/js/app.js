@@ -91,6 +91,19 @@ var app = angular.module('cuaderno', [
         }
     })
     
+    .state('app.help', {
+        url: "/help",
+        views: {
+            'menuContent' :{
+                templateUrl: "templates/help.html",
+                controller: 'HelpCtrl as help'
+            }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.guest]
+        }
+    })
+    
     .state('app.signup', {
         url: "/signup",
         views: {
