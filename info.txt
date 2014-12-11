@@ -24,7 +24,9 @@ Config.xml file:
   </feature>
 </widget>
 
-No Plugins Currently Installed
+Plugins: 
+
+org.apache.cordova.splashscreen,org.pbernasconi.progressindicator
 
 Android platform:
 

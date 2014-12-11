@@ -11,6 +11,11 @@ var app = angular.module('cuaderno', [
     'pascalprecht.translate'
 ])
 
+// Server Host
+.constant('SERVER_ADDRESS', {
+    host: 'http://192.168.1.110'
+})
+
 // Auth events
 .constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
@@ -44,24 +49,25 @@ var app = angular.module('cuaderno', [
         }
     });
 })
-/*
+
 .run(function ($rootScope, AUTH_EVENTS, AuthService) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
-        console.log("Route changed...");
         var authorizedRoles = next.data.authorizedRoles;
         if (!AuthService.isAuthorized(authorizedRoles)) {
             event.preventDefault();
             if (AuthService.isAuthenticated()) {
                 // user is not allowed
+                console.log("User not authorized");
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
             } else {
                 // user is not logged in
+                console.log("User not authenticated");
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
         }
     });
 })
-*/
+
 .config(function($stateProvider, $urlRouterProvider, USER_ROLES) {
     $stateProvider
 
@@ -107,11 +113,11 @@ var app = angular.module('cuaderno', [
             }
         },
         data: {
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.tecnico, USER_ROLES.productor]
         }
     })
     
-    .state('app.single', {
+    .state('app.parcela.single', {
         url: "/parcelas/:parcelaId",
         views: {
             'menuContent' :{
@@ -120,7 +126,7 @@ var app = angular.module('cuaderno', [
             }
         },
         data: {
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.tecnico, USER_ROLES.productor]
         }
     });
         

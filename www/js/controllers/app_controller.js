@@ -8,9 +8,10 @@ appControllers.controller('AppCtrl',[
     '$timeout',
     '$ionicNavBarDelegate',
     '$ionicPopup',
+    '$cordovaProgress',
     'USER_ROLES',
     'AuthService',
-    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, USER_ROLES, AuthService) {
+    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, USER_ROLES, AuthService) {
         // Form data for the login modal
         this.modal = null;
         this.loginData = {};
@@ -58,7 +59,7 @@ appControllers.controller('AppCtrl',[
                 this.loginData.password.length < 6) {
                 // Errors
                 if (this.loginData.username === undefined || this.loginData.username === '')
-                    this.errorMessages.push('Usuario vacío');
+                    this.errorMessages.push('Nombre de usuario vacío');
                 if (this.loginData.password === '' || this.loginData.password === undefined)
                     this.errorMessages.push('Contraseña vacía');
                 if (this.loginData.password !== undefined && this.loginData.password.length < 6)
@@ -68,24 +69,19 @@ appControllers.controller('AppCtrl',[
             } else {
                 // Simulate a login delay. Remove this and replace with your login
                 // code if using a login system
-                $timeout(function() {
-                    self.closeLogin();
-                }, 1000);
+                this.loginData.task = 'mobile_login';
+                AuthService.login(this.loginData);
             }
 
             // TODO: Login in the service
             console.log('Doing login', this.loginData);
         };
 
-        this.hideLoginErrors = function() {
-            this.errorMessages = [];
-        };
-
         // An alert dialog with the login errors
         this.showLoginErrors = function() {
             var templateString = '<label>';
             angular.forEach(this.errorMessages, function(key, value) {
-                templateString += '<p class="assertive">' + key + '</p>';
+                templateString += '<p class="assertive"><i class="ion-star" data-pack="default"></i> ' + key + '</p>';
             });
             templateString += '</label>';
             
@@ -103,11 +99,11 @@ appControllers.controller('AppCtrl',[
 
         // Go to signup template
         this.goSignUp = function() {
-            console.log('Sign up');
             $window.location.href = '#/app/signup';
         };
 
-        // Copy 'this' object to access their methods or variables
+        // Copy object 'this' to access their methods or variables
+        // in other js scopes
         var self = this;
     }
 ]);
