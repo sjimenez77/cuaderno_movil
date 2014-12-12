@@ -13,13 +13,27 @@ appServices.factory('AuthService', [
         authService.login = function (credentials) {
             // TODO: Enable plugins when build app
             // $cordovaProgress.showSimpleWithLabel(true, "Loading");
-            return $http
-                .post(SERVER_ADDRESS.host + '/login', credentials)
+            return $http({
+                        url: SERVER_ADDRESS.host,
+                        method: "POST",
+                        data: credentials,
+                        withCredentials: false,
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8'
+                        }
+                    })
                 .then(
                     // Success callback
                     function (res) {
-                        Session.create(res.data.id, res.data.user.id, res.data.user.role);
-                        return res.data.user;
+                        console.log('Res:', res);
+                        if (res.data.failure !== undefined && res.data.failure) {
+                            return false;
+                        } else {
+                            if (res.data.success) {
+                                Session.create(res.data.id, res.data.user.id, res.data.user.role);
+                                return res.data.user;
+                            }
+                        }
                         /*
                         $cordovaProgress.hide();
                         // TODO: Check 

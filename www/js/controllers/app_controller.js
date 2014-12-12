@@ -98,11 +98,11 @@ appControllers.controller('AppCtrl',[
                 // Simulate a login delay. Remove this and replace with your login
                 // code if using a login system
                 this.loginData.task = 'mobile_login';
-                AuthService.login(this.loginData);
+                AuthService.login(angular.toJson(this.loginData));
             }
 
             // TODO: Login in the service
-            console.log('Doing login', this.loginData);
+            console.log('Doing login', angular.toJson(this.loginData));
         };
 
         // Perform the contact action when the user submits the contact form
