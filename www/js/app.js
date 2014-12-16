@@ -29,10 +29,10 @@ var app = angular.module('cuaderno', [
 // User roles
 .constant('USER_ROLES', {
     all: '*',
-    admin: 'admin',
-    distribuidor: 'distribuidor',
-    tecnico: 'tecnico',
-    productor: 'productor',
+    admin: 'A',
+    distribuidor: 'D',
+    cooperativa: 'C',
+    productor: 'P',
     guest: 'guest'
 })
 
@@ -126,7 +126,7 @@ var app = angular.module('cuaderno', [
             }
         },
         data: {
-            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.tecnico, USER_ROLES.productor]
+            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.cooperativa, USER_ROLES.productor]
         }
     })
     
@@ -139,7 +139,7 @@ var app = angular.module('cuaderno', [
             }
         },
         data: {
-            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.tecnico, USER_ROLES.productor]
+            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.cooperativa, USER_ROLES.productor]
         }
     });
         

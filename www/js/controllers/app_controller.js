@@ -3,6 +3,7 @@
 
 appControllers.controller('AppCtrl',[
     '$scope',
+    '$rootScope',
     '$window',
     '$ionicModal',
     '$timeout',
@@ -10,8 +11,9 @@ appControllers.controller('AppCtrl',[
     '$ionicPopup',
     '$cordovaProgress',
     'USER_ROLES',
+    'AUTH_EVENTS',
     'AuthService',
-    function($scope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, USER_ROLES, AuthService) {
+    function($scope, $rootScope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, USER_ROLES, AUTH_EVENTS, AuthService) {
         // Form data for the modals
         this.modalLogin = null;
         this.modalContact = null;
@@ -67,8 +69,26 @@ appControllers.controller('AppCtrl',[
         
         // Logout and go home
         this.logout = function() {
-            AuthService.logout();
-            $window.location.href = '#/app/home';
+            // A confirm dialog
+            var confirmPopup = $ionicPopup.confirm({
+                title: 'Atención',
+                template: '¿Está seguro que quiere cerrar su sesión?',
+                cancelText: 'No',
+                cancelType: 'button-default',
+                okText: 'Salir',
+                okType: 'button-assertive',
+            });
+
+            confirmPopup.then(function(res) {
+                if (res) {
+                    // Confirm logout
+                    AuthService.logout();
+                    self.currentUser = null;
+                    $window.location.href = '#/app/home';
+                } else {
+                    console.log('Logout canceled...');
+                }
+            });
         };
 
         // Perform the login action when the user submits the login form
@@ -98,11 +118,21 @@ appControllers.controller('AppCtrl',[
                 // Simulate a login delay. Remove this and replace with your login
                 // code if using a login system
                 this.loginData.task = 'mobile_login';
-                AuthService.login(angular.toJson(this.loginData));
-            }
+                AuthService.login(this.loginData).then(function (user) {
+                    if (user) {
+                        // User object returned
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        self.closeLogin();
+                        self.setCurrentUser(user);
+                    } else {
+                        // Some error has happened 
+                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                    }
+                }, function () {
+                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                });
 
-            // TODO: Login in the service
-            console.log('Doing login', angular.toJson(this.loginData));
+            }
         };
 
         // Perform the contact action when the user submits the contact form
@@ -131,8 +161,8 @@ appControllers.controller('AppCtrl',[
             } else {
                 // Simulate a login delay. Remove this and replace with your login
                 // code if using a login system
-                this.loginData.task = 'mobile_login';
-                AuthService.login(this.loginData);
+                this.contactData.task = 'mobile_contact';
+                // TODO: Send contact data to server
             }
         };
 
@@ -160,6 +190,11 @@ appControllers.controller('AppCtrl',[
         this.goSignUp = function() {
             $window.location.href = '#/app/signup';
         };
+
+        // Events
+        $scope.$on(AUTH_EVENTS.loginFailed, function( event ) {
+            console.log('Login failed...');
+        });
 
         // Copy object 'this' to access their methods or variables
         // in other js scopes

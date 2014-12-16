@@ -19,19 +19,45 @@ appServices.factory('AuthService', [
                         data: credentials,
                         withCredentials: false,
                         headers: {
-                            'Content-Type': 'application/json; charset=utf-8'
+                            'Accept': 'application/x-www-form-urlencoded; application/json; charset=utf-8',
+                            'Content-Type': 'application/x-www-form-urlencoded; application/json; charset=utf-8'
                         }
                     })
                 .then(
                     // Success callback
                     function (res) {
-                        console.log('Res:', res);
-                        if (res.data.failure !== undefined && res.data.failure) {
+                        if (res.data.success !== undefined && !res.data.success) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: '<i class="ion-alert-circled"></i> Credenciales incorrectas',
+                                subTitle: 'Ha sido imposible acceder al servicio',
+                                template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + res.status + ':</strong> ' + res.data.msg + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, revise sus credenciales e inténtelo de nuevo más tarde...</span>',
+                                okText: 'Entendido',
+                            });
+
+                            alertPopup.then(function() {
+                                console.log('Login Response: ', res);
+                            });
                             return false;
                         } else {
-                            if (res.data.success) {
-                                Session.create(res.data.id, res.data.user.id, res.data.user.role);
-                                return res.data.user;
+                            if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
+                                Session.create(res.data.results[0].session_id, res.data.results[0].user, res.data.results[0].rol);
+                                console.log('Login Success: ', res);
+                                return res.data.results[0];
+                            }
+
+                            if (res.data.success && (parseInt(res.data.total, 10) === 0)) {
+                                // Login incorrect
+                                var alertPopup = $ionicPopup.alert({
+                                    title: '<i class="ion-alert-circled"></i> Credenciales incorrectas',
+                                    subTitle: 'Usuario y/o password incorrectos',
+                                    template: '<span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, revise sus credenciales e inténtelo de nuevo...</span>',
+                                    okText: 'Entendido',
+                                });
+
+                                alertPopup.then(function() {
+                                    console.log('Login Response: ', res);
+                                });
+                                return false;
                             }
                         }
                         /*
@@ -46,12 +72,12 @@ appServices.factory('AuthService', [
                         var alertPopup = $ionicPopup.alert({
                             title: '<i class="ion-alert-circled"></i> Error',
                             subTitle: 'Ha sido imposible acceder al servicio',
-                            template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
+                            template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
                             okText: 'Entendido',
                         });
 
                         alertPopup.then(function(res) {
-                            console.log('Login error object: ', error);
+                            console.log('Login Response: ', error);
                         });
                     }
                 );
@@ -71,10 +97,10 @@ appServices.factory('AuthService', [
             }
             if (authorizedRoles.indexOf('guest') !== -1) {
                 // Guest access
-                console.log('Guest access...');
                 return true;
             } else {
                 // Access control
+                console.log('Access control:', (authService.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1));
                 return (authService.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
             }
         };

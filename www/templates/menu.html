@@ -10,7 +10,7 @@
             <h1 class="title">{{ 'OPTIONS' | translate }}</h1>
         </header>
         <ion-content class="has-header">
-            <ion-list ng-if="!app.currentUser">
+            <ion-list>
                 <!-- No user -->
                 <div ng-if="!app.currentUser">
                     <ion-item class="item item-stable item-icon-left" menu-close href="#/app/home">
@@ -22,11 +22,11 @@
                 </div>
                 <!-- User logged in -->
                 <div ng-if="app.currentUser">
-                    <ion-item class="item item-icon-left balanced" menu-close href="#/app/parcelas">
+                    <ion-item class="item item-icon-left" menu-close href="#/app/parcelas">
                         <span class="balanced"><i class="icon ion-plus-circled"></i> Mis parcelas</span>
                     </ion-item>
-                    <ion-item class="item item-icon-left assertive" menu-close ng-click="app.logout()">
-                        <span class="balanced"><i class="icon ion-log-out"></i> Salir</span>
+                    <ion-item class="item item-icon-left" menu-close ng-click="app.logout()">
+                        <span class="assertive"><i class="icon ion-log-out"></i> Salir</span>
                     </ion-item>
                 </div>
                 <!-- Common options -->
