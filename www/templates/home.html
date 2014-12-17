@@ -20,9 +20,9 @@
             <ion-list>
                 <ion-item class="item-divider">Bienvenido, {{ app.currentUser.nombre }}</ion-item>
                     <label class="item">
-                        <a href="#/app/parcelas" class="button button-balanced button-block" type="button">
+                        <button class="button button-balanced button-block" type="button" ng-click="app.goParcelas()">
                             <i class="icon ion-home"></i> Ver mis parcelas
-                        </a>
+                        </button>
                     </label>
             </ion-list>
         </div>

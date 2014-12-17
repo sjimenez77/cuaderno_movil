@@ -7,6 +7,7 @@ var app = angular.module('cuaderno', [
     'ionic',
     'cuaderno.controllers',
     'cuaderno.services',
+    'cuaderno.utils',
     'ngCordova',
     'pascalprecht.translate'
 ])
@@ -48,6 +49,15 @@ var app = angular.module('cuaderno', [
             StatusBar.styleDefault();
         }
     });
+})
+
+.run(function($localStorage, Session) {
+    // Create session if it is stored
+    var sessionStored = $localStorage.getObject('session');
+    if (!angular.equals(sessionStored, {})) {
+        console.log('Session stored:', sessionStored);
+        Session.create(sessionStored.id, sessionStored.userId, sessionStored.userRole);
+    }
 })
 
 .run(function ($rootScope, AUTH_EVENTS, AuthService) {
@@ -165,3 +175,4 @@ var app = angular.module('cuaderno', [
 // Modules instantiation
 var appControllers = angular.module('cuaderno.controllers', []);
 var appServices = angular.module('cuaderno.services', []);
+var appUtils = angular.module('cuaderno.utils', []);

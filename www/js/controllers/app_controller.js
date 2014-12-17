@@ -1,4 +1,4 @@
-/* global appControllers */
+/* global appControllers angular */
 'use strict';
 
 appControllers.controller('AppCtrl',[
@@ -10,10 +10,11 @@ appControllers.controller('AppCtrl',[
     '$ionicNavBarDelegate',
     '$ionicPopup',
     '$cordovaProgress',
+    '$localStorage',
     'USER_ROLES',
     'AUTH_EVENTS',
     'AuthService',
-    function($scope, $rootScope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, USER_ROLES, AUTH_EVENTS, AuthService) {
+    function($scope, $rootScope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, $localStorage, USER_ROLES, AUTH_EVENTS, AuthService) {
         // Form data for the modals
         this.modalLogin = null;
         this.modalContact = null;
@@ -22,6 +23,12 @@ appControllers.controller('AppCtrl',[
         
         // User
         this.currentUser = null;
+        var userStored = $localStorage.getObject('user');        
+        if (!angular.equals(userStored, {})) {
+            console.log('User stored:', userStored);
+            this.currentUser = userStored;
+        }
+
         this.userRoles = USER_ROLES;
         this.isAuthorized = AuthService.isAuthorized;
         
@@ -84,6 +91,7 @@ appControllers.controller('AppCtrl',[
                     // Confirm logout
                     AuthService.logout();
                     self.currentUser = null;
+                    // Go home
                     $window.location.href = '#/app/home';
                 } else {
                     console.log('Logout canceled...');
@@ -131,7 +139,6 @@ appControllers.controller('AppCtrl',[
                 }, function () {
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                 });
-
             }
         };
 
@@ -189,6 +196,11 @@ appControllers.controller('AppCtrl',[
         // Go to signup template
         this.goSignUp = function() {
             $window.location.href = '#/app/signup';
+        };
+
+        // Go to parcelas template
+        this.goParcelas = function() {
+            $window.location.href = '#/app/parcelas';
         };
 
         // Events

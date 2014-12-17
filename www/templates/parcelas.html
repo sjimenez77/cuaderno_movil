@@ -4,15 +4,35 @@
             <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         </ion-nav-buttons>
     </ion-nav-bar>
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
-    <ion-content class="has-header">
-        <ion-nav-bar class="bar-positive" animation="nav-title-slide-ios7"></ion-nav-bar>
-        <ion-list>
-            <ion-item ng-repeat="parcela in parcelas" href="#/app/parcelas/{{parcela.id}}">
-                {{ parcela.title }}
-            </ion-item>
-        </ion-list>
+    <ion-content class="has-header" padding="true">
+        <div class="list">
+            <div class="item item-checkbox item-icon-left item-icon-right"
+                collection-repeat="parcela in parcelas.listado"
+                collection-item-width="'100%'"
+                collection-item-height="parcelas.getItemHeight(parcela.descripcion, $index)"
+                can-swipe="listCanSwipe"
+                ng-style="{ height: parcelas.getItemHeight(parcela.descripcion, $index), left:0, right:0 }">
+                <label class="checkbox checkbox-balanced">
+                    <input type="checkbox" ng-model="parcela.isChecked">
+                </label>
+                <span class="balanced"><strong>{{ parcela.descripcion }}</strong></span>
+                <span class="positive" ng-if="parcela.pa_cultivo"> - {{ parcela.pa_cultivo }}</span><br> 
+                <span ng-if="parcela.pa_municipio && parcela.pa_provincia">{{ parcela.pa_municipio }} ({{ parcela.pa_provincia }})</span><br>  
+                <a  class="button button-icon icon ion-chevron-right balanced"
+                    ng-href="#/app/parcela/{{ parcela.id }}"
+                    style="z-index: 1000"></a>
+            </div>
+        </div>
     </ion-content>
+    <div class="tabs tabs-dark">
+        <a class="tab-item" ng-click="parcelas.toggleAll()">
+            <i class="icon ion-checkmark-circled"></i> Todas
+        </a>
+        <a class="tab-item" ng-click="parcelas.showFilterDialog()">
+            <i class="icon ion-search"></i> Buscar
+        </a>
+        <a class="tab-item" ng-click="parcelas.showActions()">
+            <i class="icon ion-ios-more"></i> Acciones
+        </a>
+    </div>
 </ion-view>

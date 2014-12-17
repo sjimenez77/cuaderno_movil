@@ -5,9 +5,10 @@ appServices.factory('AuthService', [
     '$http',
     'Session',
     '$ionicPopup',
+    '$localStorage',
     'SERVER_ADDRESS',
     // '$cordovaProgress',
-    function ($http, Session, $ionicPopup, SERVER_ADDRESS /*, $cordovaProgress */) {
+    function ($http, Session, $ionicPopup, $localStorage, SERVER_ADDRESS /*, $cordovaProgress */) {
         var authService = {};
  
         authService.login = function (credentials) {
@@ -37,12 +38,13 @@ appServices.factory('AuthService', [
                             alertPopup.then(function() {
                                 console.log('Login Response: ', res);
                             });
-                            return false;
                         } else {
                             if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
-                                Session.create(res.data.results[0].session_id, res.data.results[0].user, res.data.results[0].rol);
                                 console.log('Login Success: ', res);
-                                return res.data.results[0];
+                                Session.create(res.data.results[0].session_id, res.data.results[0].user, res.data.results[0].rol);
+                                // Persist Session and User objects
+                                $localStorage.setObject('session', Session);
+                                $localStorage.setObject('user', res.data.results[0]);
                             }
 
                             if (res.data.success && (parseInt(res.data.total, 10) === 0)) {
@@ -57,7 +59,6 @@ appServices.factory('AuthService', [
                                 alertPopup.then(function() {
                                     console.log('Login Response: ', res);
                                 });
-                                return false;
                             }
                         }
                         /*
@@ -84,6 +85,9 @@ appServices.factory('AuthService', [
         };
 
         authService.logout = function () {
+            // Remove data form local storage
+            $localStorage.removeItem('user');
+            $localStorage.removeItem('session');
             Session.destroy();
         };
             
@@ -100,7 +104,6 @@ appServices.factory('AuthService', [
                 return true;
             } else {
                 // Access control
-                console.log('Access control:', (authService.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1));
                 return (authService.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
             }
         };
