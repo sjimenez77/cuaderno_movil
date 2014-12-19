@@ -23,14 +23,14 @@
                 <span class="input-label">Provincia</span>
                 <input type="text" placeholder="Provincia" ng-model="parcelas.filterData.pa_provincia">
             </label>
-            <label class="item">
-                <button class="button button-block button-positive" ng-click="parcelas.doFilter()">
-                    <i class="icon ion-search"></i> Filtrar las parcelas
+            <div class="item">
+                <button class="button button-block button-assertive" ng-click="parcelas.doFilter()">
+                    <i class="icon ion-search"></i> Filtrar parcelas
                 </button>
-                <button class="button button-block button-assertive button-outline" ng-click="parcelas.removeFilter()">
-                    <i class="icon ion-ios-undo"></i> Mostrar todas las parcelas
+                <button class="button button-block button-balanced" ng-click="parcelas.removeFilter()">
+                    <i class="icon ion-ios-undo"></i> Elimina filtro y muestra todas
                 </button>
-            </label>
+            </div>
         </div>
     </ion-content>
 </div>

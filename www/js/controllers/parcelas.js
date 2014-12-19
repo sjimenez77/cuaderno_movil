@@ -10,8 +10,7 @@ appControllers.controller('ParcelasCtrl', [
     'Collection',
     '$ionicModal',
     '$ionicPopup',
-    '$ionicLoading',
-    function($scope, $filter, $ionicListDelegate, Session, Parcelas, Collection, $ionicModal, $ionicPopup, $ionicLoading) {
+    function($scope, $filter, $ionicListDelegate, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
     	// Default filter for server
     	this.filtro = {};
     	this.sort = {};
@@ -74,7 +73,11 @@ appControllers.controller('ParcelasCtrl', [
 			            console.log('Login Response: ', error);
 			        });
 			    }
-			);
+			)
+			.finally(function () {
+				// Stop the ion-refresher from spinning
+				$scope.$broadcast('scroll.refreshComplete');
+			});
 		};
 
         // Get parcelas from Collection by default unless the first time
@@ -132,6 +135,8 @@ appControllers.controller('ParcelasCtrl', [
 
         this.doFilter = function() {
         	// TODO: Filter
+        	var found = $filter('filter')(Collection.parcelas, this.filterData, false);
+        	this.listado = found;
             this.modalFilterParcelas.hide();
         };
 
