@@ -1,1 +1,13 @@
 /* Empty. Add your own CSS if you like */
+ion-item:last-child {
+    margin-bottom:49px;
+}
+
+.no-margin {
+	margin: 0 !important;
+}
+
+/* Different color for each row */
+ion-item.parcela:nth-child(2n) > div {
+	background: #EEF0E0 !important;
+}

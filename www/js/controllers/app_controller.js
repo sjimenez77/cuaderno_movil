@@ -78,7 +78,8 @@ appControllers.controller('AppCtrl',[
         this.logout = function() {
             // A confirm dialog
             var confirmPopup = $ionicPopup.confirm({
-                title: 'Atención',
+                title: '<span class="assertive">Atención</span>',
+                subTitle: 'Deberá introducir de nuevo su usuario y contraseña para entrar',
                 template: '¿Está seguro que quiere cerrar su sesión?',
                 cancelText: 'No',
                 cancelType: 'button-default',
@@ -123,22 +124,9 @@ appControllers.controller('AppCtrl',[
             if (errors) {
                 this.showErrors();
             } else {
-                // Simulate a login delay. Remove this and replace with your login
-                // code if using a login system
+                // Login
                 this.loginData.task = 'mobile_login';
-                AuthService.login(this.loginData).then(function (user) {
-                    if (user) {
-                        // User object returned
-                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                        self.closeLogin();
-                        self.setCurrentUser(user);
-                    } else {
-                        // Some error has happened 
-                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                    }
-                }, function () {
-                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                });
+                AuthService.login(this.loginData);
             }
         };
 
@@ -206,6 +194,11 @@ appControllers.controller('AppCtrl',[
         // Events
         $scope.$on(AUTH_EVENTS.loginFailed, function( event ) {
             console.log('Login failed...');
+        });
+
+        $scope.$on(AUTH_EVENTS.loginSuccess, function( event ) {
+            self.closeLogin();
+            self.setCurrentUser($localStorage.getObject('user'));
         });
 
         // Copy object 'this' to access their methods or variables

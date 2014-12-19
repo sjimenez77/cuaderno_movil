@@ -6,21 +6,19 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <form ng-submit="app.doLogin()">
-            <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">Usuario</span>
-                    <input type="text" placeholder="Escriba su usuario" ng-model="app.loginData.username">
-                </label>
-                <label class="item item-input">
-                    <span class="input-label">Contraseña</span>
-                    <input type="password" placeholder="Escriba su contraseña" ng-model="app.loginData.password">
-                </label>
-                <label class="item">
-                    <button class="button button-block button-balanced" type="submit"><i class="icon ion-log-in"></i> Entrar</button>
-                </label>
-            </div>
-        </form>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Usuario</span>
+                <input type="text" placeholder="Escriba su usuario" ng-model="app.loginData.username">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Contraseña</span>
+                <input type="password" placeholder="Escriba su contraseña" ng-model="app.loginData.password">
+            </label>
+            <label class="item">
+                <button class="button button-balanced button-block" ng-click="app.doLogin()"><i class="icon ion-log-in"></i> Entrar</button>
+            </label>
+        </div>
     </ion-content>
 </div>
 

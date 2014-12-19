@@ -140,7 +140,7 @@ var app = angular.module('cuaderno', [
         }
     })
     
-    .state('app.parcela.single', {
+    .state('app.parcela', {
         url: "/parcelas/:parcelaId",
         views: {
             'menuContent' :{

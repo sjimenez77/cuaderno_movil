@@ -1,0 +1,37 @@
+<div class="modal">
+    <ion-header-bar class="bar-dark">
+        <h1 class="title">Introduzca su búsqueda</h1>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="parcelas.closeFilterDialog()"><i class="icon ion-close"></i></button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Descripción</span>
+                <input type="text" placeholder="Descripción" ng-model="parcelas.filterData.descripcion">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Cultivo</span>
+                <input type="text" placeholder="Cultivo" ng-model="parcelas.filterData.pa_cultivo">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Municipio</span>
+                <input type="text" placeholder="Municipio" ng-model="parcelas.filterData.pa_municipio">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Provincia</span>
+                <input type="text" placeholder="Provincia" ng-model="parcelas.filterData.pa_provincia">
+            </label>
+            <label class="item">
+                <button class="button button-block button-positive" ng-click="parcelas.doFilter()">
+                    <i class="icon ion-search"></i> Filtrar las parcelas
+                </button>
+                <button class="button button-block button-assertive button-outline" ng-click="parcelas.removeFilter()">
+                    <i class="icon ion-ios-undo"></i> Mostrar todas las parcelas
+                </button>
+            </label>
+        </div>
+    </ion-content>
+</div>
+
