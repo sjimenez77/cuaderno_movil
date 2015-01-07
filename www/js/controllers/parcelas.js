@@ -2,155 +2,178 @@
 'use strict';
 
 appControllers.controller('ParcelasCtrl', [
-	'$scope',
-	'$filter',
-	'$ionicListDelegate',
+    '$scope',
+    '$filter',
+    '$ionicListDelegate',
     'Session',
     'Parcelas',
     'Collection',
     '$ionicModal',
     '$ionicPopup',
     function($scope, $filter, $ionicListDelegate, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
-    	// Default filter for server
-    	this.filtro = {};
-    	this.sort = {};
+        // Default filter for server
+        this.filtro = {};
+        this.sort = {};
 
-    	// Array of parcelas
-    	this.listado = [];
-    	
-    	// Local filter
-    	this.filterData = {};
+        // Array of parcelas
+        this.listado = [];
 
-    	// Create the filter modal that we will use later
+        // Local filter
+        this.filterData = {};
+
+        // Toggle checked boolean
+        this.allChecked = false;
+
+        // Create the filter modal that we will use later
         $ionicModal.fromTemplateUrl('templates/filter_parcelas.html', {
             scope: $scope
         }).then(function(modal) {
             self.modalFilterParcelas = modal;
         });
 
-		// Parcelas from service
-		this.getParcelasFromServer = function() {
-			Parcelas.getParcelas(Session.id, Session.userRole, this.filtro)
-			.then(
-				// Success callback
-				function (res) {
-					console.log(res);
-					if (res.data.success !== undefined && !res.data.success) {
-					    var alertPopup = $ionicPopup.alert({
-							title: '<i class="ion-alert-circled"></i> Error',
-							subTitle: 'Se ha producido un error',
-							template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + res.status + ':</strong> ' + res.data.msg + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
-							okText: 'Entendido',
-					    });
+        // Parcelas from service
+        this.getParcelasFromServer = function() {
+            Parcelas.getParcelas(Session.id, Session.userRole, this.filtro)
+                .then(
+                    // Success callback
+                    function(res) {
+                        console.log(res);
+                        if (res.data.success !== undefined && !res.data.success) {
+                            var alertPopup = $ionicPopup.alert({
+                                title: '<i class="ion-alert-circled"></i> Error',
+                                subTitle: 'Se ha producido un error',
+                                template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + res.status + ':</strong> ' + res.data.msg + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
+                                okText: 'Entendido',
+                            });
 
-					    alertPopup.then(function() {
-							console.log('Response error: ', res);
-					    });
-					    return [];
-					} else {
-					    if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
-							self.listado = res.data.results;
-							Collection.parcelas = res.data.results;
-							console.log(Collection);
-					    }
+                            alertPopup.then(function() {
+                                console.log('Response error: ', res);
+                            });
+                            return [];
+                        } else {
+                            if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
+                                self.listado = res.data.results;
+                                Collection.parcelas = res.data.results;
+                                console.log(Collection);
+                            }
 
-					    if (res.data.success && (parseInt(res.data.total, 10) === 0)) {
-							// Sin parcelas
-							console.log('Sin parcelas...');
-					    }
-					}
-			    },
-			    // Error callback
-			    function(error) {
-			        var alertPopup = $ionicPopup.alert({
-			            title: '<i class="ion-alert-circled"></i> Error',
-			            subTitle: 'Ha sido imposible acceder al servicio',
-			            template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
-			            okText: 'Entendido',
-			        });
+                            if (res.data.success && (parseInt(res.data.total, 10) === 0)) {
+                                // Sin parcelas
+                                console.log('Sin parcelas...');
+                            }
+                        }
+                    },
+                    // Error callback
+                    function(error) {
+                        var alertPopup = $ionicPopup.alert({
+                            title: '<i class="ion-alert-circled"></i> Error',
+                            subTitle: 'Ha sido imposible acceder al servicio',
+                            template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
+                            okText: 'Entendido',
+                        });
 
-			        alertPopup.then(function(res) {
-			            console.log('Login Response: ', error);
-			        });
-			    }
-			)
-			.finally(function () {
-				// Stop the ion-refresher from spinning
-				$scope.$broadcast('scroll.refreshComplete');
-			});
-		};
+                        alertPopup.then(function(res) {
+                            console.log('Login Response: ', error);
+                        });
+                    }
+            	)
+                .finally(function() {
+                    // Stop the ion-refresher from spinning
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        };
 
         // Get parcelas from Collection by default unless the first time
         this.getParcelas = function() {
-        	if (Collection.parcelas.length === 0) {
-	        	this.getParcelasFromServer();
-        	} else {
-        		this.listado = Collection.parcelas;
-        	}
-		};
+            if (Collection.parcelas.length === 0) {
+                this.getParcelasFromServer();
+            } else {
+                this.listado = Collection.parcelas;
+            }
+        };
 
-		// Item remove with confirmation popup
-		this.removeParcela = function(parcelaId) {
-			// A confirm dialog
-			var confirmPopup = $ionicPopup.confirm({
-			    title: '<span class="assertive">Atención</span>',
-			    subTitle: 'Borrará la parcela y apuntes asociados',
-			    template: '¿Está seguro que quiere borrar esta parcela?',
-			    cancelText: 'No',
-			    cancelType: 'button-default',
-			    okText: 'Borrar',
-			    okType: 'button-assertive',
-			});
+        // Item remove with confirmation popup
+        this.removeParcela = function(parcelaId) {
+            // A confirm dialog
+            var confirmPopup = $ionicPopup.confirm({
+                title: '<span class="assertive">Atención</span>',
+                subTitle: 'Borrará la parcela y apuntes asociados',
+                template: '¿Está seguro que quiere borrar esta parcela?',
+                cancelText: 'No',
+                cancelType: 'button-default',
+                okText: 'Borrar',
+                okType: 'button-assertive',
+            });
 
-			confirmPopup.then(function(res) {
-			    if (res) {
-			        // Confirm logout
-			        var found = $filter('filter')(Collection.parcelas, { id: parcelaId }, true);
-			        if (found.length) {
-			        	var index = Collection.parcelas.indexOf(found[0]);
-			            Collection.parcelas.splice(index, 1);
-			            self.listado = Collection.parcelas;
-			            $ionicListDelegate.closeOptionButtons();
-			        } else {
-			            return false;
-			        }
-			    } else {
-			        console.log('Remove Parcela canceled...');
-			        $ionicListDelegate.closeOptionButtons();
-			    }
-			});
-		};
+            confirmPopup.then(function(res) {
+                if (res) {
+                    // Confirm remove
+                    var found = $filter('filter')(Collection.parcelas, {
+                        id: parcelaId
+                    }, true);
+                    if (found.length) {
 
-		// First load
-		this.getParcelas();
+                        // TODO: Remove from server
+                        // Parcelas.removeParcela(Session.id, Session.userRole, parcelaId)
+                        // .then(
+                        // 	function(res) {},
+                        // 	function(error) {}
+                        // );
+
+                        var index = Collection.parcelas.indexOf(found[0]);
+                        Collection.parcelas.splice(index, 1);
+                        self.listado = Collection.parcelas;
+                        $ionicListDelegate.closeOptionButtons();
+                    } else {
+                        return false;
+                    }
+                } else {
+                    console.log('Remove Parcela canceled...');
+                    $ionicListDelegate.closeOptionButtons();
+                }
+            });
+        };
+
+        // First load
+        this.getParcelas();
 
         // Triggered in the filter modal to close it
         this.closeFilterDialog = function() {
             this.modalFilterParcelas.hide();
         };
-        
+
         this.showFilterDialog = function() {
             this.modalFilterParcelas.show();
         };
 
         this.doFilter = function() {
-        	// TODO: Filter
-        	var found = $filter('filter')(Collection.parcelas, this.filterData, false);
-        	this.listado = found;
+            // TODO: Filter
+            var found = $filter('filter')(Collection.parcelas, this.filterData, false);
+            this.listado = found;
             this.modalFilterParcelas.hide();
         };
 
         // Remove the filter and show all items
         this.removeFilter = function() {
-        	this.filterData = {};
-        	this.listado = Collection.parcelas;
+            this.filterData = {};
+            this.listado = Collection.parcelas;
             this.modalFilterParcelas.hide();
         };
 
         this.toggleAll = function() {
-        	angular.forEach(self.listado, function(parcela) {
-        		parcela.isChecked = !parcela.isChecked;
-        	});
+            angular.forEach(self.listado, function(parcela) {
+                parcela.isChecked = !self.allChecked;
+            });
+
+            this.allChecked = !this.allChecked;
+        };
+
+        // Add or remove item id in the factory array of selected items
+        this.toggleSelected = function (selected, parcelaId) {
+        	if (selected)
+        	   	Parcelas.pushSelected(parcelaId);
+        	else
+        		Parcelas.spliceSelected(parcelaId);
         };
 
         this.getItemHeight = function(item, index) {

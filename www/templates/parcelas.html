@@ -12,7 +12,7 @@
         <ion-list class="my-list">
             <ion-item class="item item-checkbox item-icon-left item-icon-right parcela" ng-repeat="parcela in parcelas.listado">
                 <label class="checkbox checkbox-balanced">
-                    <input type="checkbox" ng-model="parcela.isChecked">
+                    <input type="checkbox" ng-model="parcela.isChecked" ng-change="parcelas.toggleSelected(parcela.isChecked, parcela.id)">
                 </label>
                 <span class="balanced"><strong>{{ parcela.descripcion }}</strong></span>
                 <span class="positive" ng-if="parcela.pa_cultivo"> - {{ parcela.pa_cultivo }}</span><br> 
@@ -31,7 +31,7 @@
         <a class="tab-item" ng-click="parcelas.showFilterDialog()">
             <i class="icon ion-search"></i> Buscar
         </a>
-        <a class="tab-item" ng-click="parcelas.showActions()">
+        <a class="tab-item" ng-href="#/app/actions">
             <i class="icon ion-ios-more"></i> Acciones
         </a>
     </div>

@@ -14,7 +14,7 @@ var app = angular.module('cuaderno', [
 
 // Server Host
 .constant('SERVER_ADDRESS', {
-    host: 'http://192.168.1.111/cuadernov2/app/api/io.php'
+    host: 'http://192.168.1.21/cuadernov2/app/api/io.php'
 })
 
 // Auth events
@@ -146,6 +146,20 @@ var app = angular.module('cuaderno', [
             'menuContent' :{
                 templateUrl: "templates/parcela.html",
                 controller: 'ParcelaCtrl as parcela'
+            }
+        },
+        data: {
+            authorizedRoles: [USER_ROLES.distribuidor, USER_ROLES.cooperativa, USER_ROLES.productor]
+        }
+    })
+
+    
+    .state('app.actions', {
+        url: "/actions",
+        views: {
+            'menuContent' :{
+                templateUrl: "templates/actions.html",
+                controller: 'ActionsCtrl as actions'
             }
         },
         data: {

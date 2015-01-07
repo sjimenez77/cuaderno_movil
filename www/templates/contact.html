@@ -19,12 +19,12 @@
                 <span class="input-label">Mensaje</span>
                 <textarea placeholder="Escriba su mensaje" ng-model="app.contactData.message" rows="8"></textarea>
             </label>
+            <div class="item">
+                <button class="button button-block button-royal" ng-click="app.doContact()">
+                    <i class="icon ion-paper-airplane"></i> Enviar mensaje
+                </button>
+            </div>
         </div>
     </ion-content>
-    <div class="tabs tabs-icon-left tabs-balanced">
-        <a class="tab-item" ng-click="app.doContact()">
-            <i class="icon ion-paper-airplane"></i> Enviar mensaje
-        </a>
-    </div>
 </div>
 
