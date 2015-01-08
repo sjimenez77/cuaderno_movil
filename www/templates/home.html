@@ -18,12 +18,17 @@
         </div>
         <div ng-if="app.currentUser">
             <ion-list>
-                <ion-item class="item-divider">Bienvenido, {{ app.currentUser.nombre }}</ion-item>
-                    <label class="item">
-                        <button class="button button-balanced button-block" type="button" ng-click="app.goParcelas()">
-                            <i class="icon ion-home"></i> Ver mis parcelas
-                        </button>
-                    </label>
+                <div class="item item-divider">
+                    Login correcto - Usuario tipo {{ app.currentUser.rol }}
+                </div>
+                <a class="item item-thumbnail-left" href="#">
+                    <img src="img/user.png">
+                    <h2>{{ app.currentUser.nombre }}</h2>
+                    <p>{{ app.currentUser.apellidos }}</p>
+                </a>
+                <button class="button button-balanced button-block" type="button" ng-click="app.goParcelas()">
+                    <i class="icon ion-ios-list"></i> Mis parcelas
+                </button>
             </ion-list>
         </div>
     </ion-content>

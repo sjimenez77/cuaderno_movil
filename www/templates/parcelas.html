@@ -11,7 +11,7 @@
         </ion-refresher>
         <ion-list class="my-list">
             <ion-item class="item item-checkbox item-icon-left item-icon-right parcela" ng-repeat="parcela in parcelas.listado">
-                <label class="checkbox checkbox-balanced">
+                <label class="checkbox checkbox-positive">
                     <input type="checkbox" ng-model="parcela.isChecked" ng-change="parcelas.toggleSelected(parcela.isChecked, parcela.id)">
                 </label>
                 <span class="balanced"><strong>{{ parcela.descripcion }}</strong></span>
@@ -20,13 +20,13 @@
                 <a class="button button-icon icon ion-chevron-right balanced"
                    ng-href="#/app/parcelas/{{ parcela.id }}"
                    style="z-index: 1000"></a>
-                <ion-option-button class="button-assertive" ng-click="parcelas.removeParcela(parcela.id)"><i class="icon ion-trash-a"></i></ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="parcelas.removeParcela(parcela.id)"><i class="icon ion-ios-trash"></i></ion-option-button>
             </ion-item>
         </ion-list>
     </ion-content>
     <div class="tabs tabs-balanced">
         <a class="tab-item" ng-click="parcelas.showFilterDialog()">
-            <i class="icon ion-search"></i> Buscar
+            <i class="icon ion-ios-search-strong"></i> Buscar
         </a>
         <a class="tab-item" ng-click="parcelas.toggleAll()">
             <i class="icon ion-checkmark-circled"></i> Todas
