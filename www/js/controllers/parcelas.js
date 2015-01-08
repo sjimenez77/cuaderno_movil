@@ -12,17 +12,11 @@ appControllers.controller('ParcelasCtrl', [
     '$ionicPopup',
     function($scope, $filter, $ionicListDelegate, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
         // Default filter for server
-        this.filtro = {};
-        this.sort = {};
+        this.filtro = {};	// Not used now
+        this.sort = {};		// Not used now
 
         // Array of parcelas
         this.listado = [];
-
-        // Local filter
-        this.filterData = {};
-
-        // Toggle checked boolean
-        this.allChecked = false;
 
         // Create the filter modal that we will use later
         $ionicModal.fromTemplateUrl('templates/filter_parcelas.html', {
@@ -80,6 +74,9 @@ appControllers.controller('ParcelasCtrl', [
                 .finally(function() {
                     // Stop the ion-refresher from spinning
                     $scope.$broadcast('scroll.refreshComplete');
+                    // Reinitialize filter
+                    self.filterData = {};
+                    Parcelas.setFilter({});
                 });
         };
 
@@ -134,21 +131,22 @@ appControllers.controller('ParcelasCtrl', [
             });
         };
 
-        // First load
-        this.getParcelas();
-
         // Triggered in the filter modal to close it
         this.closeFilterDialog = function() {
             this.modalFilterParcelas.hide();
         };
 
+        // Show the filter modal dialog
         this.showFilterDialog = function() {
             this.modalFilterParcelas.show();
         };
 
-        this.doFilter = function() {
-            // TODO: Filter
-            var found = $filter('filter')(Collection.parcelas, this.filterData, false);
+        // Filter function
+        this.doFilter = function(filterData) {
+        	// Set the filter in service in order to remember it
+        	Parcelas.setFilter(filterData);
+
+            var found = $filter('filter')(Collection.parcelas, filterData, false);
             this.listado = found;
             this.modalFilterParcelas.hide();
         };
@@ -156,24 +154,36 @@ appControllers.controller('ParcelasCtrl', [
         // Remove the filter and show all items
         this.removeFilter = function() {
             this.filterData = {};
+            Parcelas.setFilter({});
+            // Show all items
             this.listado = Collection.parcelas;
             this.modalFilterParcelas.hide();
         };
 
         this.toggleAll = function() {
-            angular.forEach(self.listado, function(parcela) {
-                parcela.isChecked = !self.allChecked;
-            });
-
-            this.allChecked = !this.allChecked;
+        	var checked = Parcelas.getCheck();
+            if (checked) {
+	            angular.forEach(self.listado, function(parcela) {
+	                parcela.isChecked = !checked;
+	                Parcelas.spliceSelected(parcela.id);
+	            });
+	        } else {
+	            angular.forEach(self.listado, function(parcela) {
+	                parcela.isChecked = !checked;
+                	Parcelas.pushSelected(parcela.id);
+	            });
+            }
+            // Toggle the control check
+            Parcelas.toggleCheck();
         };
 
         // Add or remove item id in the factory array of selected items
         this.toggleSelected = function (selected, parcelaId) {
-        	if (selected)
+        	if (selected) {
         	   	Parcelas.pushSelected(parcelaId);
-        	else
+        	} else {
         		Parcelas.spliceSelected(parcelaId);
+        	}
         };
 
         this.getItemHeight = function(item, index) {
@@ -181,6 +191,16 @@ appControllers.controller('ParcelasCtrl', [
             // return (index % 2) === 0 ? 50 : 60;
             return 70;
         };
+
+        // First load
+        this.getParcelas();
+
+        // Set local filter
+        this.filterData = Parcelas.getFilter();
+        if (this.filterData !== {}) {
+        	var found = $filter('filter')(Collection.parcelas, this.filterData, false);
+        	this.listado = found;
+        }
 
         var self = this;
     }

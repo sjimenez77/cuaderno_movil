@@ -24,7 +24,7 @@
                 <input type="text" placeholder="Provincia" ng-model="parcelas.filterData.pa_provincia">
             </label>
             <div class="item">
-                <button class="button button-block button-assertive" ng-click="parcelas.doFilter()">
+                <button class="button button-block button-assertive" ng-click="parcelas.doFilter(parcelas.filterData)">
                     <i class="icon ion-search"></i> Filtrar parcelas
                 </button>
                 <button class="button button-block button-balanced" ng-click="parcelas.removeFilter()">

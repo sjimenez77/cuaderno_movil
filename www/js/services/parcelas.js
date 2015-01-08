@@ -5,20 +5,47 @@ appServices.factory('Parcelas', [
     '$http',
     'SERVER_ADDRESS',
     function($http, SERVER_ADDRESS) {
-        var parcelas = {};
-        var selected = [];
+        var parcelas = {};                  // Parcelas 
+        var selected = [];                  // Array of selected items
+        var allChecked = false;             // Flag for toggle check button
+        var filterData = {};                // Filter object
+
+        // *** Local Methods ******************************************************************************************
+        
+        // Toggle flag
+        parcelas.toggleCheck = function () {
+            allChecked = !allChecked;
+        };
+
+        // Get flag value
+        parcelas.getCheck = function() {
+            return allChecked;
+        };
 
         // Push parcela id in the selected items array
         parcelas.pushSelected = function(parcelaId) {
-            selected.push(parcelaId);
+            var index = selected.indexOf(parcelaId);
+            if (index < 0) {
+                selected.push(parcelaId);
+            }
         };
 
         // Splice parcela id from selected items array
         parcelas.spliceSelected = function(parcelaId) {
             var index = selected.indexOf(parcelaId);
-            if (index) {
+            if (index >= 0) {
                 selected.splice(index, 1);
             }
+        };
+
+        // Get Filter Data
+        parcelas.getFilter = function() {
+            return filterData;
+        };
+
+        // Set Filter Data
+        parcelas.setFilter = function (filter) {
+            filterData = filter;
         };
 
         // Return total number of selected items
@@ -30,6 +57,8 @@ appServices.factory('Parcelas', [
         parcelas.selectNone = function() {
             parcelas.selected = [];
         };
+
+        // *** Server Methods *****************************************************************************************
 
         // Get items from server
         parcelas.getParcelas = function(sessionId, sessionRole, filtro, sort) {
