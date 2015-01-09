@@ -63,7 +63,6 @@ appControllers.controller('ParcelaCtrl', [
 
 				    } else {
 				        console.log('Remove Parcela canceled...');
-				        $ionicListDelegate.closeOptionButtons();
 				    }
 				});
 			}

@@ -14,9 +14,9 @@
                 <label class="checkbox checkbox-positive">
                     <input type="checkbox" ng-model="parcela.isChecked" ng-change="parcelas.toggleSelected(parcela.isChecked, parcela.id)">
                 </label>
-                <span class="balanced"><strong>{{ parcela.descripcion }}</strong></span>
-                <span class="positive" ng-if="parcela.pa_cultivo"> - {{ parcela.pa_cultivo }}</span><br> 
-                <span ng-if="parcela.pa_municipio && parcela.pa_provincia">{{ parcela.pa_municipio }} ({{ parcela.pa_provincia }})</span><br>  
+                <span class="balanced"><strong>{{ parcela.descripcion }}</strong></span> - 
+                <span class="positive" ng-if="parcela.pa_cultivo">{{ parcela.pa_cultivo }}</span><br> 
+                <span ng-if="parcela.pa_municipio && parcela.pa_provincia" style="font-size: 0.7em"><strong>{{ parcela.pa_productor }}</strong><br>{{ parcela.pa_municipio }} ({{ parcela.pa_provincia }})</span><br>  
                 <a class="button button-icon icon ion-chevron-right balanced"
                    ng-href="#/app/parcelas/{{ parcela.id }}"
                    style="z-index: 1000"></a>
