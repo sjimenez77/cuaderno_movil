@@ -14,7 +14,7 @@ var app = angular.module('cuaderno', [
 
 // Server Host
 .constant('SERVER_ADDRESS', {
-    host: 'http://192.168.1.21/cuadernov2/app/api/io.php'
+    host: 'http://192.168.1.21/cuadernov2/cuadernov2/app/api/io.php'
 })
 
 // Auth events

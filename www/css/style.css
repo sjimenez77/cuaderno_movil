@@ -8,6 +8,14 @@ ion-item:last-child {
 }
 
 /* Different color for each row */
-ion-item.parcela:nth-child(2n+1) > div {
+ion-item.parcela {
+	width: 100%;
+}
+
+ion-item.parcela > div {
+	height: 96px;
+}
+
+ion-item.green-item-list > div {
 	background: #EEF0E0 !important;
 }

@@ -10,7 +10,11 @@
             on-refresh="parcelas.getParcelasFromServer()">
         </ion-refresher>
         <ion-list class="my-list">
-            <ion-item class="item item-checkbox item-icon-left item-icon-right parcela" ng-repeat="parcela in parcelas.listado">
+            <ion-item class="item item-checkbox item-icon-left item-icon-right parcela"
+                      ng-class="{ 'green-item-list': $index % 2 == 0 }"
+                      collection-repeat="parcela in parcelas.listado"
+                      collection-item-height="96"
+                      collection-item-width="'100%'">
                 <label class="checkbox checkbox-positive">
                     <input type="checkbox" ng-model="parcela.isChecked" ng-change="parcelas.toggleSelected(parcela.isChecked, parcela.id)">
                 </label>
