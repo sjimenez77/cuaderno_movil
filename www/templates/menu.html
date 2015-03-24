@@ -1,10 +1,12 @@
 <ion-side-menus>
+
     <ion-side-menu-content>
         <ion-nav-bar class="bar-stable nav-title-slide-ios7">
             <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> {{ 'BACK' | translate }}</ion-nav-back-button>
         </ion-nav-bar>
         <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
     </ion-side-menu-content>
+
     <ion-side-menu side="left" expose-aside-when="large" style="background: #f8f8f8">
         <header class="bar bar-header bar-dark">
             <h1 class="title">{{ 'OPTIONS' | translate }}</h1>
@@ -16,7 +18,7 @@
                     <ion-item class="item item-stable item-icon-left" menu-close href="#/app/home">
                         <i class="icon ion-home"></i> Inicio
                     </ion-item>
-                    <ion-item class="item item-stable item-icon-left no-margin" menu-close ng-click="app.goSignUp()">
+                    <ion-item class="item item-stable item-icon-left" menu-close href="#/app/signup">
                         <span class="assertive"><i class="icon ion-plus-circled"></i> Nuevo usuario</span>
                     </ion-item>
                     <ion-item class="item item-stable item-icon-left" menu-close href="#/app/help">
@@ -41,4 +43,5 @@
             </ion-list>
         </ion-content>
     </ion-side-menu>
+
 </ion-side-menus>

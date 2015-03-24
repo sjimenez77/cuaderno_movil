@@ -1,4 +1,12 @@
 {
   "name": "cuaderno_movil",
-  "app_id": ""
+  "app_id": "d35a8dd9",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

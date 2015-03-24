@@ -175,12 +175,14 @@ var app = angular.module('cuaderno', [
 .config(['$translateProvider', function ($translateProvider) {
     $translateProvider.translations('en', {
         'BACK': 'Back',
-        'OPTIONS': 'Options'
+        'OPTIONS': 'Options',
+        'LOADING': 'Loading'
     });
     
     $translateProvider.translations('es', {
         'BACK': 'Volver',
-        'OPTIONS': 'Opciones'
+        'OPTIONS': 'Opciones',
+        'LOADING': 'Cargando'
     });
     
     $translateProvider.preferredLanguage('es');

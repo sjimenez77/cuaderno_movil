@@ -5,12 +5,14 @@ appControllers.controller('ParcelasCtrl', [
     '$scope',
     '$filter',
     '$ionicListDelegate',
+    '$ionicLoading',
     'Session',
     'Parcelas',
     'Collection',
     '$ionicModal',
     '$ionicPopup',
-    function($scope, $filter, $ionicListDelegate, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
+    function($scope, $filter, $ionicListDelegate, $ionicLoading, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
+        
         // Default filter for server
         this.filtro = {};	// Not used now
         this.sort = {};		// Not used now
@@ -27,6 +29,10 @@ appControllers.controller('ParcelasCtrl', [
 
         // Parcelas from service
         this.getParcelasFromServer = function() {
+            $ionicLoading.show({ 
+                template: '<ion-spinner icon="spiral" class="spinner-energized"></ion-spinner><br /><br /><span class="energized">{{ "LOADING"|translate }}...</span>'
+            });
+
             Parcelas.getParcelas(Session.id, Session.userRole, this.filtro)
                 .then(
                     // Success callback
@@ -56,6 +62,9 @@ appControllers.controller('ParcelasCtrl', [
                                 console.log('Sin parcelas...');
                             }
                         }
+
+                        // Hide loading
+                        $ionicLoading.hide();
                     },
                     // Error callback
                     function(error) {
@@ -65,6 +74,9 @@ appControllers.controller('ParcelasCtrl', [
                             template: '<strong><i class="ion-arrow-right-b"></i> Respuesta ' + error.status + ':</strong> ' + error.statusText + '<br><span class="assertive"><i class="ion-arrow-right-b"></i> Por favor, inténtelo de nuevo más tarde...</span>',
                             okText: 'Entendido',
                         });
+
+                        // Hide loading
+                        $ionicLoading.hide();
 
                         alertPopup.then(function(res) {
                             console.log('Login Response: ', error);

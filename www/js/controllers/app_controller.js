@@ -11,10 +11,11 @@ appControllers.controller('AppCtrl',[
     '$ionicPopup',
     '$cordovaProgress',
     '$localStorage',
+    '$state',
     'USER_ROLES',
     'AUTH_EVENTS',
     'AuthService',
-    function($scope, $rootScope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, $localStorage, USER_ROLES, AUTH_EVENTS, AuthService) {
+    function($scope, $rootScope, $window, $ionicModal, $timeout, $ionicNavBarDelegate, $ionicPopup, $cordovaProgress, $localStorage, $state, USER_ROLES, AUTH_EVENTS, AuthService) {
         // Form data for the modals
         this.modalLogin = null;
         this.modalContact = null;
@@ -183,7 +184,7 @@ appControllers.controller('AppCtrl',[
 
         // Go to signup template
         this.goSignUp = function() {
-            $window.location.href = '#/app/signup';
+            $state.go('app.signup');
         };
 
         // Go to parcelas template
