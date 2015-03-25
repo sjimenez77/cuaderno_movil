@@ -10,9 +10,8 @@ appServices.factory('AuthService', [
     '$localStorage',
     'AUTH_EVENTS',
     'SERVER_ADDRESS',
-    'Places',
     // '$cordovaProgress',
-    function ($http, Session, $rootScope, $ionicPopup, $ionicLoading, $localStorage, AUTH_EVENTS, SERVER_ADDRESS, Places /*, $cordovaProgress */) {
+    function ($http, Session, $rootScope, $ionicPopup, $ionicLoading, $localStorage, AUTH_EVENTS, SERVER_ADDRESS /*, $cordovaProgress */) {
         var authService = {};
  
         authService.login = function (credentials) {
@@ -52,11 +51,6 @@ appServices.factory('AuthService', [
                             if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
                                 console.log('Login Success: ', res);
                                 Session.create(res.data.results[0].session_id, res.data.results[0].user, res.data.results[0].rol);
-
-                                // Get common data
-                                Places.getCCAA();
-                                Places.getProvincias();
-                                Places.getPoblaciones();
                                 
                                 // Persist Session and User objects
                                 $localStorage.setObject('session', Session);

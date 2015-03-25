@@ -3,8 +3,9 @@
 
 appServices.factory('Parcelas', [
     '$http',
+    'Places',
     'SERVER_ADDRESS',
-    function($http, SERVER_ADDRESS) {
+    function($http, Places, SERVER_ADDRESS) {
         var parcelas = {};                  // Parcelas 
         var selected = [];                  // Array of selected items
         var allChecked = false;             // Flag for toggle check button
@@ -79,6 +80,15 @@ appServices.factory('Parcelas', [
                     'Accept': 'application/x-www-form-urlencoded; application/json; charset=utf-8',
                     'Content-Type': 'application/x-www-form-urlencoded; application/json; charset=utf-8'
                 }
+            })
+            .success(function (res) {
+                // Get common data
+                Places.getCCAA();
+                Places.getProvincias();
+                Places.getPoblaciones();
+            })
+            .error(function(error) {
+                console.log('Error parcelas service:', error);
             });
         };
 
