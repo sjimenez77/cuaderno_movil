@@ -22,7 +22,7 @@
                     {{ app.currentUser.rol|translate }}
                 </div>
                 <a class="item item-thumbnail-left" href="#">
-                    <img src="img/user.png">
+                    <img src="http://www.gravatar.com/avatar/{{ app.currentUser.user|gravatar }}?s=80&d=http%3A%2F%2Fwww.micuadernodecampo.es%2Fimages%2Fuser.png">
                     <h2>{{ app.currentUser.nombre }}</h2>
                     <p>{{ app.currentUser.apellidos }}</p>
                 </a>

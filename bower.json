@@ -4,6 +4,7 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-rc.1",
     "angular-translate": "~2.6.1",
-    "ngCordova": "~0.1.14-alpha"
+    "ngCordova": "~0.1.14-alpha",
+    "angular-md5": "~0.1.7"
   }
 }

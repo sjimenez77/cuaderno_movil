@@ -9,7 +9,8 @@ var app = angular.module('cuaderno', [
     'cuaderno.services',
     'cuaderno.utils',
     'ngCordova',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'angular-md5'
 ])
 
 // Server Host
