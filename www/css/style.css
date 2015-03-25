@@ -1,4 +1,4 @@
-/* Empty. Add your own CSS if you like */
+/* Custom CSS */
 ion-item:last-child {
     margin-bottom:49px;
 }
@@ -18,4 +18,9 @@ ion-item.parcela > div {
 
 ion-item.green-item-list > div {
 	background: #EEF0E0 !important;
+}
+
+/* Ionic CSS hacks */
+.popup-body {
+	overflow: auto;
 }

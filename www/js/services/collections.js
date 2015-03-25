@@ -4,23 +4,15 @@
 appServices.service('Collection', function () {
     // Create app collections
     this.parcelas = [];
-    this.cultivos = [
-    	{
-    		id: '0',
-    		name: 'VID',
-    	},
-    	{
-    		id: '1',
-    		name: 'TOMATE',
-    	},
-    	{
-    		id: '2',
-    		name: 'ARROZ',
-    	},
-    	{
-    		id: '3',
-    		name: 'PATATA',
-    	},
+    this.cultivos = [];
+    this.variedades = [];
+    this.ccaa = [];
+    this.provincias = [];
+    this.poblaciones = [];
+    this.clasificaciones = [
+        { key: 'Convencional', value: 'CONVENCIONAL' },
+        { key: 'Conversión', value: 'CONVERSIÓN' },
+        { key: 'Ecológico', value: 'ECOLÓGICO' }
     ];
 
     return this;

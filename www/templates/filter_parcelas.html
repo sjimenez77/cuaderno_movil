@@ -16,6 +16,19 @@
                 <input type="text" placeholder="Cultivo" ng-model="parcelas.filterData.pa_cultivo">
             </label>
             <label class="item item-input item-floating-label">
+                <span class="input-label">Variedad</span>
+                <input type="text" placeholder="Variedad" ng-model="parcelas.filterData.pa_plantvariedad">
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">Clasificación</span>
+                <select ng-options="tipo.key as tipo.value for tipo in parcelas.clasificaciones" ng-model="parcelas.filterData.pa_clasificacion">
+                </select>
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Nombre y/o apellidos del productor</span>
+                <input type="text" placeholder="Nombre y/o apellidos del productor" ng-model="parcelas.filterData.pa_productor">
+            </label>
+            <label class="item item-input item-floating-label">
                 <span class="input-label">Municipio</span>
                 <input type="text" placeholder="Municipio" ng-model="parcelas.filterData.pa_municipio">
             </label>

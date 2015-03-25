@@ -176,13 +176,23 @@ var app = angular.module('cuaderno', [
     $translateProvider.translations('en', {
         'BACK': 'Back',
         'OPTIONS': 'Options',
-        'LOADING': 'Loading'
+        'LOADING': 'Loading',
+        'REMOVE': 'Remove',
+        'A': 'Administrator',
+        'D': 'Distributor',
+        'C': 'Cooperative',
+        'P': 'Productor'
     });
     
     $translateProvider.translations('es', {
         'BACK': 'Volver',
         'OPTIONS': 'Opciones',
-        'LOADING': 'Cargando'
+        'LOADING': 'Cargando',
+        'REMOVE': 'Borrar',
+        'A': 'Administrador',
+        'D': 'Distribuidor',
+        'C': 'Cooperativa',
+        'P': 'Productor'
     });
     
     $translateProvider.preferredLanguage('es');

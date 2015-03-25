@@ -8,17 +8,28 @@ appControllers.controller('ParcelasCtrl', [
     '$ionicLoading',
     'Session',
     'Parcelas',
+    'Places',
     'Collection',
     '$ionicModal',
     '$ionicPopup',
-    function($scope, $filter, $ionicListDelegate, $ionicLoading, Session, Parcelas, Collection, $ionicModal, $ionicPopup) {
-        
+    function($scope, $filter, $ionicListDelegate, $ionicLoading, Session, Parcelas, Places, Collection, $ionicModal, $ionicPopup) {
+
+        var self = this;
+
         // Default filter for server
-        this.filtro = {};	// Not used now
-        this.sort = {};		// Not used now
+        self.filtro = {};	// Not used now
+        self.sort = {};		// Not used now
+
+        // Data for selectors
+        console.log('Collections:', Collection);
+        self.cultivos = Collection.cultivos;
+        self.ccaa = Collection.ccaa;
+        self.provincias = Collection.provincias;
+        self.poblaciones = Collection.poblaciones;
+        self.clasificaciones = Collection.clasificaciones;
 
         // Array of parcelas
-        this.listado = [];
+        self.listado = [];
 
         // Create the filter modal that we will use later
         $ionicModal.fromTemplateUrl('templates/filter_parcelas.html', {
@@ -28,12 +39,12 @@ appControllers.controller('ParcelasCtrl', [
         });
 
         // Parcelas from service
-        this.getParcelasFromServer = function() {
+        self.getParcelasFromServer = function() {
             $ionicLoading.show({ 
                 template: '<ion-spinner icon="spiral" class="spinner-energized"></ion-spinner><br /><br /><span class="energized">{{ "LOADING"|translate }}...</span>'
             });
 
-            Parcelas.getParcelas(Session.id, Session.userRole, this.filtro)
+            Parcelas.getParcelas(Session.id, Session.userRole, self.filtro)
                 .then(
                     // Success callback
                     function(res) {
@@ -54,7 +65,7 @@ appControllers.controller('ParcelasCtrl', [
                             if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
                                 self.listado = res.data.results;
                                 Collection.parcelas = res.data.results;
-                                console.log(Collection);
+                                console.log('Collections after loading parcelas:', Collection);
                             }
 
                             if (res.data.success && (parseInt(res.data.total, 10) === 0)) {
@@ -93,16 +104,16 @@ appControllers.controller('ParcelasCtrl', [
         };
 
         // Get parcelas from Collection by default unless the first time
-        this.getParcelas = function() {
+        self.getParcelas = function() {
             if (Collection.parcelas.length === 0) {
-                this.getParcelasFromServer();
+                self.getParcelasFromServer();
             } else {
-                this.listado = Collection.parcelas;
+                self.listado = Collection.parcelas;
             }
         };
 
         // Item remove with confirmation popup
-        this.removeParcela = function(parcelaId) {
+        self.removeParcela = function(parcelaId) {
             // A confirm dialog
             var confirmPopup = $ionicPopup.confirm({
                 title: '<span class="assertive">Atención</span>',
@@ -144,35 +155,35 @@ appControllers.controller('ParcelasCtrl', [
         };
 
         // Triggered in the filter modal to close it
-        this.closeFilterDialog = function() {
-            this.modalFilterParcelas.hide();
+        self.closeFilterDialog = function() {
+            self.modalFilterParcelas.hide();
         };
 
         // Show the filter modal dialog
-        this.showFilterDialog = function() {
-            this.modalFilterParcelas.show();
+        self.showFilterDialog = function() {
+            self.modalFilterParcelas.show();
         };
 
         // Filter function
-        this.doFilter = function(filterData) {
+        self.doFilter = function(filterData) {
         	// Set the filter in service in order to remember it
         	Parcelas.setFilter(filterData);
 
             var found = $filter('filter')(Collection.parcelas, filterData, false);
-            this.listado = found;
-            this.modalFilterParcelas.hide();
+            self.listado = found;
+            self.modalFilterParcelas.hide();
         };
 
         // Remove the filter and show all items
-        this.removeFilter = function() {
-            this.filterData = {};
+        self.removeFilter = function() {
+            self.filterData = {};
             Parcelas.setFilter({});
             // Show all items
-            this.listado = Collection.parcelas;
-            this.modalFilterParcelas.hide();
+            self.listado = Collection.parcelas;
+            self.modalFilterParcelas.hide();
         };
 
-        this.toggleAll = function() {
+        self.toggleAll = function() {
         	var checked = Parcelas.getCheck();
             if (checked) {
 	            angular.forEach(self.listado, function(parcela) {
@@ -190,7 +201,7 @@ appControllers.controller('ParcelasCtrl', [
         };
 
         // Add or remove item id in the factory array of selected items
-        this.toggleSelected = function (selected, parcelaId) {
+        self.toggleSelected = function (selected, parcelaId) {
         	if (selected) {
         	   	Parcelas.pushSelected(parcelaId);
         	} else {
@@ -198,22 +209,24 @@ appControllers.controller('ParcelasCtrl', [
         	}
         };
 
-        this.getItemHeight = function(item, index) {
+        self.getItemHeight = function(item, index) {
             // Make evenly indexed items be 10px taller, for the sake of example
             // return (index % 2) === 0 ? 50 : 60;
             return 70;
         };
 
+        self.closeOptions = function() {
+            $ionicListDelegate.closeOptionButtons();
+        };
+
         // First load
-        this.getParcelas();
+        self.getParcelas();
 
         // Set local filter
-        this.filterData = Parcelas.getFilter();
-        if (this.filterData !== {}) {
-        	var found = $filter('filter')(Collection.parcelas, this.filterData, false);
-        	this.listado = found;
+        self.filterData = Parcelas.getFilter();
+        if (self.filterData !== {}) {
+        	var found = $filter('filter')(Collection.parcelas, self.filterData, false);
+        	self.listado = found;
         }
-
-        var self = this;
     }
 ]);

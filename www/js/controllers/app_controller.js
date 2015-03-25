@@ -81,7 +81,7 @@ appControllers.controller('AppCtrl',[
             var confirmPopup = $ionicPopup.confirm({
                 title: '<span class="assertive">Atención</span>',
                 subTitle: 'Deberá introducir de nuevo su usuario y contraseña para entrar',
-                template: '¿Está seguro que quiere cerrar su sesión?',
+                template: '<div style="width: 100%; text-align:center"><h4>¿Está seguro que<br>quiere cerrar su sesión?</h4></div>',
                 cancelText: 'No',
                 cancelType: 'button-default',
                 okText: 'Salir',

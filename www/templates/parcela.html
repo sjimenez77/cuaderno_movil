@@ -25,13 +25,32 @@
                     		ng-disabled="parcela.blocked">
                     </select>
                 </label>
-                <label class="item item-input item-stacked-label">
+                <label class="item item-input item-select">
+                    <span class="input-label">Comunidad</span>
+                    <select ng-options="ca.id as ca.descripcion for ca in parcela.ccaa"
+                            ng-model="parcela.data.pa_com_id"
+                            ng-disabled="parcela.blocked">
+                    </select>
+                </label>
+                <label class="item item-input item-select">
                     <span class="input-label">Provincia</span>
-                    <input type="text" placeholder="Provincia" ng-model="parcela.data.pa_provincia" ng-disabled="parcela.blocked">
+                    <select ng-options="prov.id as prov.descripcion for prov in parcela.provincias | filter:{ pro_com_id : parcela.data.pa_com_id }:true"
+                            ng-model="parcela.data.pa_pro_id"
+                            ng-disabled="parcela.blocked">
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">Poblacion</span>
+                    <select ng-options="pob.id as pob.descripcion for pob in parcela.poblaciones
+                                        | filter:{ pob_com_id : parcela.data.pa_com_id }:true
+                                        | filter:{ pob_pro_id : parcela.data.pa_pro_id }:true"
+                            ng-model="parcela.data.pa_pob_id"
+                            ng-disabled="parcela.blocked">
+                    </select>
                 </label>
                 <label class="item item-input item-stacked-label">
-                    <span class="input-label">Municipio</span>
-                    <input type="text" placeholder="Municipio" ng-model="parcela.data.pa_municipio" ng-disabled="parcela.blocked">
+                    <span class="input-label">SigPac</span>
+                    <input type="text" placeholder="SigPac" ng-model="parcela.data.pa_codigo_sigpac" ng-disabled="parcela.blocked">
                 </label>
             </div>
         </div>
@@ -45,6 +64,9 @@
         </a>
         <a class="tab-item" ng-click="parcela.remove()">
             <i class="icon ion-ios-trash-outline"></i> Borrar
+        </a>
+        <a class="tab-item" ng-click="parcela.viewSigPac($event, parcela.data.pa_codigo_sigpac)" ng-show="parcela.data.pa_codigo_sigpac.length > 0">
+            <i class="icon ion-ios-location-outline"></i> Borrar
         </a>
     </div>
 </ion-view>

@@ -6,16 +6,21 @@ appServices.factory('AuthService', [
     'Session',
     '$rootScope',
     '$ionicPopup',
+    '$ionicLoading',
     '$localStorage',
     'AUTH_EVENTS',
     'SERVER_ADDRESS',
+    'Places',
     // '$cordovaProgress',
-    function ($http, Session, $rootScope, $ionicPopup, $localStorage, AUTH_EVENTS, SERVER_ADDRESS /*, $cordovaProgress */) {
+    function ($http, Session, $rootScope, $ionicPopup, $ionicLoading, $localStorage, AUTH_EVENTS, SERVER_ADDRESS, Places /*, $cordovaProgress */) {
         var authService = {};
  
         authService.login = function (credentials) {
             // TODO: Enable plugins when build app
             // $cordovaProgress.showSimpleWithLabel(true, "Loading");
+            $ionicLoading.show({ 
+                template: '<ion-spinner icon="spiral" class="spinner-energized"></ion-spinner><br /><br /><span class="energized">{{ "LOADING"|translate }}...</span>'
+            });
             return $http({
                         url: SERVER_ADDRESS.host,
                         method: "POST",
@@ -47,6 +52,11 @@ appServices.factory('AuthService', [
                             if (res.data.success && (parseInt(res.data.total, 10) > 0)) {
                                 console.log('Login Success: ', res);
                                 Session.create(res.data.results[0].session_id, res.data.results[0].user, res.data.results[0].rol);
+
+                                // Get common data
+                                Places.getCCAA();
+                                Places.getProvincias();
+                                Places.getPoblaciones();
                                 
                                 // Persist Session and User objects
                                 $localStorage.setObject('session', Session);
@@ -79,6 +89,9 @@ appServices.factory('AuthService', [
                         $cordovaProgress.showSuccess(true, "Success!");
                         $cordovaProgress.hide();
                         */
+                       
+                        // Hide loading
+                        $ionicLoading.hide();
                     },
                     // Error callback
                     function (error) {
