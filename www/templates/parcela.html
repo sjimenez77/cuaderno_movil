@@ -20,9 +20,16 @@
                 </label>
                 <label class="item item-input item-select">
                     <span class="input-label">Cultivo</span>
-                    <select ng-options="cultivo.id as cultivo.name for cultivo in parcela.cultivos"
+                    <select ng-options="cultivo.id as cultivo.descripcion for cultivo in parcela.cultivos"
                             ng-model="parcela.data.pa_cu_id"
                     		ng-disabled="parcela.blocked">
+                    </select>
+                </label>
+                <label class="item item-input item-select">
+                    <span class="input-label">Variedad</span>
+                    <select ng-options="variedad.id as variedad.descripcion for variedad in parcela.variedades"
+                            ng-model="parcela.data.pa_va_id"
+                            ng-disabled="parcela.blocked">
                     </select>
                 </label>
                 <label class="item item-input item-select">
